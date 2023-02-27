@@ -5,11 +5,11 @@ const url = 'http://localhost:8000/api/auth/register'
 
 export default function Register() {
 
-  const [validUsername, setValidUserName] = useState<boolean>(true)
-  const [availableUserName, setAvailableUserName] = useState<boolean>(true)
+  // const [validUsername, setValidUserName] = useState<boolean>(true)
+  // const [availableUserName, setAvailableUserName] = useState<boolean>(true)
 
-  const [validEmail, setValidEmail] = useState<boolean>(true)
-  const [availableEmail, setAvailableEmail] = useState<boolean>(true)
+  // const [validEmail, setValidEmail] = useState<boolean>(true)
+  // const [availableEmail, setAvailableEmail] = useState<boolean>(true)
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -25,9 +25,11 @@ export default function Register() {
       email: emailRef?.current?.value as string,
     }
 
-    if (data.username.length < 3) return setValidUserName(false)
+    // if (data.username.length < 3) setValidUserName(false)
 
-    if (!/\S+@\S+\.\S+/.test(data.email)) return setValidEmail(false)
+    // if (!/\S+@\S+\.\S+/.test(data.email)) setValidEmail(false)
+
+    // if (validEmail === false || validUsername === false) return
 
     try {
       fetch(url,
@@ -44,20 +46,20 @@ export default function Register() {
 
             console.log(text)
 
-            if (text === '"This username is not available!"') setAvailableUserName(false)
+            // if (text === '"This username is not available!"') setAvailableUserName(false)
 
-            if (text === '"This email is already registered!"') setAvailableEmail(false)
+            // if (text === '"This email is already registered!"') setAvailableEmail(false)
 
             throw new Error(text)
           }
           const text = await res.text()
 
-          setAvailableUserName(true)
-          setAvailableEmail(true)
-          setValidUserName(true)
-          setValidEmail(true)
+          // setAvailableUserName(true)
+          // setAvailableEmail(true)
+          // setValidUserName(true)
+          // setValidEmail(true)
 
-          console.log('User REGISTERED')
+          // console.log('User REGISTERED')
 
           return JSON.parse(text)
         })
@@ -75,8 +77,8 @@ export default function Register() {
       <div>
         <label htmlFor="username">username</label>
         <input name="username" id="username" type="text" ref={usernameRef} />
-        {!availableUserName && <p>This username is not available!</p>}
-        {!validUsername && <p>This username is not valid!</p>}
+        {/* {!availableUserName && <p>This username is not available!</p>}
+        {!validUsername && <p>This username is not valid!</p>} */}
       </div>
 
       <div>
@@ -87,8 +89,8 @@ export default function Register() {
       <div>
         <label htmlFor="email">email</label>
         <input name="email" type="email" ref={emailRef} />
-        {!validEmail && <p>This email is invalid!</p>}
-        {!availableEmail && <p>This email is already registered!</p>}
+        {/* {!validEmail && <p>This email is invalid!</p>}
+        {!availableEmail && <p>This email is already registered!</p>} */}
       </div>
 
       <div>

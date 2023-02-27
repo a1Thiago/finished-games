@@ -6,20 +6,38 @@ import jwt from 'jsonwebtoken'
 const querySelectEmail = "SELECT * FROM users WHERE email = ?"
 const querySelectUsername = "SELECT * FROM users WHERE username = ?"
 
+interface ErrorMsg {
+  invalidUserName?: string;
+  invalidPassWord?: string
+  invalidEmail?: string;
+}
 
 export function register(req: Request, res: Response) {
+
+  const errorMsg: ErrorMsg = {}
 
   if (Object.entries(req.body).length !== 3) return res.status(509).json('All fields are required!')
 
   const { username, email, password } = req?.body
 
   if (!username || !email || !password) return res.status(509).json('All fields are required!')
-  // const querySelectEmail = "SELECT * FROM users WHERE email = ?"
+
+
+  if (username.length < 3 || !/^[a-zA-Z0-9.\-_$@*!]{3,30}$/.test(username)) errorMsg.invalidUserName = 'This username is not valid!'
+
+  if (password.length < 6) errorMsg.invalidPassWord = 'This password is not valid!'
+
+  if (!/\S+@\S+\.\S+/.test(email)) errorMsg.invalidEmail = 'This email is not valid!'
+
+  console.log(Object.entries(errorMsg).length)
+
+  if (Object.entries(errorMsg).length >= 1) return res.status(509).json(errorMsg)
+
   db.query(querySelectEmail, [email], (err: any, data: any) => {
 
     if (err) return res.status(500).json(err)
     if (data?.length) return res.status(509).json('This email is already registered!')
-    // const querySelectUsername = "SELECT * FROM users WHERE username = ?"
+
     db.query(querySelectUsername, [username], (err: any, data: any) => {
 
       if (err) return res.status(500).json(err)
