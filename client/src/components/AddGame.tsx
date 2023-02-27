@@ -52,11 +52,11 @@ export default function AddGame() {
 
         <form action="submit" >
           <input type="text" ref={titleRef} placeholder="title" required />
-          <input type="text" ref={coverRef} placeholder="cover" />
+          <input type="url" ref={coverRef} placeholder="cover" />
           <input type="number" ref={hoursRef} placeholder="hours" defaultValue={0} />
           <input type="date" ref={dateRef} placeholder="date" />
           <input type="text" ref={platformRef} placeholder="platform" />
-          <input type="text" ref={linkRef} placeholder="link" />
+          <input type="url" ref={linkRef} placeholder="link" />
 
           <button className="bg-blue-100" onClick={handleClick}>add</button>
         </form>
