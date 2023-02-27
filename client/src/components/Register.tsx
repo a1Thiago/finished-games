@@ -44,22 +44,13 @@ export default function Register() {
 
             const text = await res.text()
 
-            console.log(text)
-
-            // if (text === '"This username is not available!"') setAvailableUserName(false)
-
-            // if (text === '"This email is already registered!"') setAvailableEmail(false)
+            console.log(JSON.parse(text))
 
             throw new Error(text)
           }
           const text = await res.text()
 
-          // setAvailableUserName(true)
-          // setAvailableEmail(true)
-          // setValidUserName(true)
-          // setValidEmail(true)
-
-          // console.log('User REGISTERED')
+          console.log(JSON.parse(text))
 
           return JSON.parse(text)
         })

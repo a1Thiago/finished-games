@@ -16,12 +16,11 @@ export function register(req: Request, res: Response) {
 
   const errorMsg: ErrorMsg = {}
 
-  if (Object.entries(req.body).length !== 3) return res.status(509).json('All fields are required!')
+  if (Object.entries(req.body).length !== 3) return res.status(509).json({ error: 'All fields are required!' })
 
   const { username, email, password } = req?.body
 
-  if (!username || !email || !password) return res.status(509).json('All fields are required!')
-
+  if (!username || !email || !password) return res.status(509).json({ error: 'All fields are required!' })
 
   if (username.length < 3 || !/^[a-zA-Z0-9.\-_$@*!]{3,30}$/.test(username)) errorMsg.invalidUserName = 'This username is not valid!'
 
@@ -29,19 +28,17 @@ export function register(req: Request, res: Response) {
 
   if (!/\S+@\S+\.\S+/.test(email)) errorMsg.invalidEmail = 'This email is not valid!'
 
-  console.log(Object.entries(errorMsg).length)
-
   if (Object.entries(errorMsg).length >= 1) return res.status(509).json(errorMsg)
 
   db.query(querySelectEmail, [email], (err: any, data: any) => {
 
     if (err) return res.status(500).json(err)
-    if (data?.length) return res.status(509).json('This email is already registered!')
+    if (data?.length) return res.status(509).json({ unavailableEmail: 'This email is already registered!' })
 
     db.query(querySelectUsername, [username], (err: any, data: any) => {
 
       if (err) return res.status(500).json(err)
-      if (data?.length) return res.status(509).json('This username is not available!')
+      if (data?.length) return res.status(509).json({ unavailableUserName: 'This username is not available!' })
 
       const salt = bcrypt.genSaltSync(10)
 
@@ -55,7 +52,7 @@ export function register(req: Request, res: Response) {
 
         if (err) return res.status(500).json(err)
 
-        return res.status(200).json('User has been created.')
+        return res.status(200).json({ success: 'User has been created.' })
       })
     })
   })
