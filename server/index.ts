@@ -2,6 +2,11 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 const mysql = require('mysql2');
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
+
+import usersRoutes from './routes/users'
+import gamesRoutes from './routes/games'
+import authRoutes from './routes/auth'
 
 
 dotenv.config();
@@ -14,117 +19,122 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'finishedGames',
   password: 'finished-games123',
-  database: 'data'
+  database: 'finishedgamesdata'
 })
 
-app.use(cors())
 app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
+
+app.use('/api/users', usersRoutes)
+app.use('/api/games', gamesRoutes)
+app.use('/api/auth', authRoutes)
 
 
-// app.get('/', (req: Request, res: Response) => {
-//   res.send('HOME');
-// });
 
-app.get('/games', (req: Request, res: Response) => {
 
-  const queryGames: string = `SELECT * FROM data.games;`
+// app.get('/games', (req: Request, res: Response) => {
 
-  db.query(queryGames, (err: any, data: any) => {
+//   const queryGames: string = `SELECT * FROM finishedgamesdata.games;`
 
-    if (err) {
-      return res.status(404).json(err).end()
-    } else {
-      return res.status(200).json(data).end()
-    }
-  })
-})
+//   db.query(queryGames, (err: any, data: any) => {
 
-app.get('/game/:id', (req: Request, res: Response) => {
+//     if (err) {
+//       return res.status(404).json(err).end()
+//     } else {
+//       return res.status(200).json(data).end()
+//     }
+//   })
+// })
 
-  const { id } = req.params
+// app.get('/game/:id', (req: Request, res: Response) => {
 
-  const queryGames: string = `SELECT * FROM data.games WHERE ID=${id};`
+//   const { id } = req.params
 
-  db.query(queryGames, (err: any, data: any) => {
+//   const queryGames: string = `SELECT * FROM finishedgamesdata.games WHERE ID=${id};`
 
-    if (err) {
-      return res.status(404).json(err).end()
-    } else {
-      return res.status(200).json(data).end()
-    }
+//   db.query(queryGames, (err: any, data: any) => {
 
-  })
+//     if (err) {
+//       return res.status(404).json(err).end()
+//     } else {
+//       return res.status(200).json(data).end()
+//     }
 
-})
+//   })
 
-app.post('/add', (req: Request, res: Response) => {
+// })
 
-  const queryGames = 'INSERT INTO games (`title`,`cover`,`hours`,`date`,`platform`,`link`) VALUES (?)'
+// app.post('/add', (req: Request, res: Response) => {
 
-  const { body } = req
+//   const queryGames = 'INSERT INTO games (`title`,`cover`,`hours`,`date`,`platform`,`link`) VALUES (?)'
 
-  const values = [
-    body.title,
-    body.cover,
-    body.hours,
-    body.database,
-    body.platform,
-    body.link,
-  ]
+//   const { body } = req
 
-  db.query(queryGames, [values], (err: any, data: any) => {
+//   const values = [
+//     body.title,
+//     body.cover,
+//     body.hours,
+//     body.database,
+//     body.platform,
+//     body.link,
+//   ]
 
-    if (err) {
-      return res.status(404).json(err).end()
-    } else {
-      return res.status(200).json('game created').end()
-    }
+//   db.query(queryGames, [values], (err: any, data: any) => {
 
-  })
+//     if (err) {
+//       return res.status(404).json(err).end()
+//     } else {
+//       return res.status(200).json('game created').end()
+//     }
 
-})
+//   })
 
-app.put('/edit/:id', (req: Request, res: Response) => {
+// })
 
-  const { body } = req
-  const { id } = req.params
+// app.put('/edit/:id', (req: Request, res: Response) => {
 
-  const queryGames: string = 'UPDATE games SET `title` = ?,`cover` = ?,`hours` = ?,`date` = ?,`platform` = ?,`link` = ? WHERE id = ?'
+//   const { body } = req
+//   const { id } = req.params
 
-  const values = [
-    body.title,
-    body.cover,
-    body.hours,
-    body.database,
-    body.platform,
-    body.link,
-  ]
+//   const queryGames: string = 'UPDATE games SET `title` = ?,`cover` = ?,`hours` = ?,`date` = ?,`platform` = ?,`link` = ? WHERE id = ?'
 
-  db.query(queryGames, [...values, id], (err: any, data: any) => {
-    if (err) {
-      return res.status(404).json(err).end()
-    } else {
-      return res.status(200).json('edit').end()
-    }
+//   const values = [
+//     body.title,
+//     body.cover,
+//     body.hours,
+//     body.database,
+//     body.platform,
+//     body.link,
+//   ]
 
-  })
+//   db.query(queryGames, [...values, id], (err: any, data: any) => {
+//     if (err) {
+//       return res.status(404).json(err).end()
+//     } else {
+//       return res.status(200).json('edit').end()
+//     }
 
-})
+//   })
 
-app.delete('/games/:id', (req: Request, res: Response) => {
+// })
 
-  const { id } = req.params
+// app.delete('/games/:id', (req: Request, res: Response) => {
 
-  const queryGames: string = `DELETE FROM data.games WHERE id = ?;`
+//   const { id } = req.params
 
-  db.query(queryGames, [id], (err: any, data: any) => {
-    if (err) {
-      return res.status(404).json(err).end()
-    } else {
-      return res.status(200).json('DELETADO').end()
-    }
-  })
-})
+//   const queryGames: string = `DELETE FROM finishedgamesdata.games WHERE id = ?;`
+
+//   db.query(queryGames, [id], (err: any, data: any) => {
+//     if (err) {
+//       return res.status(404).json(err).end()
+//     } else {
+//       return res.status(200).json('DELETADO').end()
+//     }
+//   })
+// })
+
+
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
