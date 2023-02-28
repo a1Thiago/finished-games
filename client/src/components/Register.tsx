@@ -5,11 +5,15 @@ const url = 'http://localhost:8000/api/auth/register'
 
 export default function Register() {
 
-  // const [validUsername, setValidUserName] = useState<boolean>(true)
-  // const [availableUserName, setAvailableUserName] = useState<boolean>(true)
+  const [filledAllFields, setFilledAllFields] = useState<string>('')
 
-  // const [validEmail, setValidEmail] = useState<boolean>(true)
-  // const [availableEmail, setAvailableEmail] = useState<boolean>(true)
+  const [validUserName, setValidUserName] = useState<string>('')
+  const [availableUserName, setAvailableUserName] = useState<string>('')
+
+  const [validPassWord, setValidPassWord] = useState<string>('')
+
+  const [validEmail, setValidEmail] = useState<string>('')
+  const [availableEmail, setAvailableEmail] = useState<string>('')
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -18,6 +22,14 @@ export default function Register() {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
 
     e.preventDefault()
+
+    setFilledAllFields('')
+    setValidUserName('')
+    setValidPassWord('')
+    setValidEmail('')
+
+    setAvailableUserName('')
+    setAvailableEmail('')
 
     const data = {
       username: usernameRef?.current?.value as string,
@@ -40,19 +52,25 @@ export default function Register() {
 
         }).then(async (res) => {
 
+          const resText = await res?.text()
+
+          const resObj = JSON?.parse(resText)
+
           if (!res.ok) {
 
-            const text = await res.text()
+            if (Object.keys(resObj).includes('requiredFields')) setFilledAllFields(resObj.requiredFields)
+            if (Object.keys(resObj).includes('invalidUserName')) setValidUserName(resObj.invalidUserName)
+            if (Object.keys(resObj).includes('invalidPassWord')) setValidPassWord(resObj.invalidPassWord)
+            if (Object.keys(resObj).includes('invalidEmail')) setValidEmail(resObj.invalidEmail)
 
-            console.log(JSON.parse(text))
+            if (Object.keys(resObj).includes('unavailableUserName')) setAvailableUserName(resObj.unavailableUserName)
+            if (Object.keys(resObj).includes('unavailableEmail')) setValidEmail(resObj.unavailableEmail)
 
-            throw new Error(text)
+            throw new Error(resText)
           }
-          const text = await res.text()
 
-          console.log(JSON.parse(text))
-
-          return JSON.parse(text)
+          //CONFIRM
+          return JSON.parse(resText)
         })
 
     } catch (error) {
@@ -64,24 +82,25 @@ export default function Register() {
 
   return (
     <div>Register
-
+      <p>{filledAllFields}</p>
       <div>
         <label htmlFor="username">username</label>
         <input name="username" id="username" type="text" ref={usernameRef} />
-        {/* {!availableUserName && <p>This username is not available!</p>}
-        {!validUsername && <p>This username is not valid!</p>} */}
+        <p>{validUserName}</p>
+        <p>{availableUserName}</p>
       </div>
 
       <div>
         <label htmlFor="password">password</label>
         <input name="password" id="password" type="password" ref={passwordRef} />
+        <p>{validPassWord}</p>
       </div>
 
       <div>
         <label htmlFor="email">email</label>
         <input name="email" type="email" ref={emailRef} />
-        {/* {!validEmail && <p>This email is invalid!</p>}
-        {!availableEmail && <p>This email is already registered!</p>} */}
+        <p>{validEmail}</p>
+        <p>{availableEmail}</p>
       </div>
 
       <div>

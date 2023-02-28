@@ -16,11 +16,11 @@ export function register(req: Request, res: Response) {
 
   const errorMsg: ErrorMsg = {}
 
-  if (Object.entries(req.body).length !== 3) return res.status(509).json({ error: 'All fields are required!' })
+  if (Object.entries(req.body).length !== 3) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
   const { username, email, password } = req?.body
 
-  if (!username || !email || !password) return res.status(509).json({ error: 'All fields are required!' })
+  if (!username || !email || !password) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
   if (username.length < 3 || !/^[a-zA-Z0-9.\-_$@*!]{3,30}$/.test(username)) errorMsg.invalidUserName = 'This username is not valid!'
 
@@ -48,7 +48,7 @@ export function register(req: Request, res: Response) {
 
       const values = [username, email, hashedPassWord]
 
-      db.query(queryInsertUser, [values], (err, data) => {
+      db.query(queryInsertUser, [values], (err: any, data: any) => {
 
         if (err) return res.status(500).json(err)
 
