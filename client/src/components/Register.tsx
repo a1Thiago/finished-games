@@ -7,13 +7,9 @@ export default function Register() {
 
   const [filledAllFields, setFilledAllFields] = useState<string>('')
 
-  const [validUserName, setValidUserName] = useState<string>('')
-  const [availableUserName, setAvailableUserName] = useState<string>('')
-
-  const [validPassWord, setValidPassWord] = useState<string>('')
-
-  const [validEmail, setValidEmail] = useState<string>('')
-  const [availableEmail, setAvailableEmail] = useState<string>('')
+  const [passWordCheck, setPassWordCheck] = useState<string>('')
+  const [userNameCheck, setUserNameCheck] = useState<string>('')
+  const [emailCheck, setEmailCheck] = useState<string>('')
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -24,24 +20,16 @@ export default function Register() {
     e.preventDefault()
 
     setFilledAllFields('')
-    setValidUserName('')
-    setValidPassWord('')
-    setValidEmail('')
 
-    setAvailableUserName('')
-    setAvailableEmail('')
+    setUserNameCheck('')
+    setEmailCheck('')
+    setPassWordCheck('')
 
     const data = {
       username: usernameRef?.current?.value as string,
       password: passwordRef?.current?.value as string,
       email: emailRef?.current?.value as string,
     }
-
-    // if (data.username.length < 3) setValidUserName(false)
-
-    // if (!/\S+@\S+\.\S+/.test(data.email)) setValidEmail(false)
-
-    // if (validEmail === false || validUsername === false) return
 
     try {
       fetch(url,
@@ -59,16 +47,13 @@ export default function Register() {
           if (!res.ok) {
 
             if (Object.keys(resObj).includes('requiredFields')) setFilledAllFields(resObj.requiredFields)
-            if (Object.keys(resObj).includes('invalidUserName')) setValidUserName(resObj.invalidUserName)
-            if (Object.keys(resObj).includes('invalidPassWord')) setValidPassWord(resObj.invalidPassWord)
-            if (Object.keys(resObj).includes('invalidEmail')) setValidEmail(resObj.invalidEmail)
 
-            if (Object.keys(resObj).includes('unavailableUserName')) setAvailableUserName(resObj.unavailableUserName)
-            if (Object.keys(resObj).includes('unavailableEmail')) setValidEmail(resObj.unavailableEmail)
+            setUserNameCheck(resObj.invalidUserName ?? resObj.unavailableUserName)
+            if (Object.keys(resObj).includes('invalidPassWord')) setPassWordCheck(resObj.invalidPassWord)
+            setEmailCheck(resObj.invalidEmail ?? resObj.unavailableEmail)
 
             throw new Error(resText)
           }
-
           //CONFIRM
           return JSON.parse(resText)
         })
@@ -86,21 +71,19 @@ export default function Register() {
       <div>
         <label htmlFor="username">username</label>
         <input name="username" id="username" type="text" ref={usernameRef} />
-        <p>{validUserName}</p>
-        <p>{availableUserName}</p>
+        <p>{userNameCheck}</p>
       </div>
 
       <div>
         <label htmlFor="password">password</label>
         <input name="password" id="password" type="password" ref={passwordRef} />
-        <p>{validPassWord}</p>
+        <p>{passWordCheck}</p>
       </div>
 
       <div>
         <label htmlFor="email">email</label>
         <input name="email" type="email" ref={emailRef} />
-        <p>{validEmail}</p>
-        <p>{availableEmail}</p>
+        <p>{emailCheck}</p>
       </div>
 
       <div>
