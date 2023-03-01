@@ -19,7 +19,6 @@ export default function Games() {
 
   const handleDelete = async (id: Number): Promise<any> => {
 
-    const url = `http://localhost:8000/games/${id}`
 
     try {
       await fetch(url, {

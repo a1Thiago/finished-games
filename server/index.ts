@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 const mysql = require('mysql2');
 import cors from 'cors'
@@ -29,8 +29,6 @@ app.use(cookieParser())
 app.use('/api/users', usersRoutes)
 app.use('/api/games', gamesRoutes)
 app.use('/api/auth', authRoutes)
-
-
 
 
 // app.get('/games', (req: Request, res: Response) => {
