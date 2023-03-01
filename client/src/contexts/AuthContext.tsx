@@ -9,7 +9,12 @@ type AuthContextType = {
   login: () => void
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null)
+const AuthContextInitial = {
+  currentUser: null,
+  login: () => { }
+}
+
+export const AuthContext = createContext<AuthContextType>(AuthContextInitial)
 
 export const AuthContextProvider = ({ children }: AuthContextProps) => {
 

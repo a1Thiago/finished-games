@@ -1,4 +1,14 @@
+import { useContext } from "react"
+import { AuthContext } from "../contexts/AuthContext"
+
 export default function Login() {
+
+  const { login } = useContext(AuthContext)
+
+  const handleLogin = () => {
+    login()
+  }
+
   return (
     <div>Login
 
@@ -13,8 +23,8 @@ export default function Login() {
       </div>
 
       <div>
-        <label htmlFor="enter">enter</label>
-        <button name="enter" id="enter">enter</button>
+        <label htmlFor="login">login</label>
+        <button name="login" id="login" onClick={handleLogin}>login</button>
       </div>
 
     </div>
