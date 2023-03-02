@@ -17,8 +17,6 @@ import { AuthContext } from "./contexts/AuthContext"
 
 export function App() {
 
-  console.log(useContext(AuthContext))
-
   const { currentUser } = useContext(AuthContext)
 
   function ProtectedUser({ children }: any | React.ReactNode | JSX.Element) {

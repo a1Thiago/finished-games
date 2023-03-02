@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 const mysql = require('mysql2');
 import cors from 'cors'
@@ -22,8 +22,15 @@ const db = mysql.createConnection({
   database: 'finishedgamesdata'
 })
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Allow-Credentials', true)
+  next()
+})
+
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173'
+}))
 app.use(cookieParser())
 
 app.use('/api/users', usersRoutes)

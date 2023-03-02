@@ -1,4 +1,5 @@
 import { useRef, useState } from "react"
+import axios from "axios"
 
 const url = 'http://localhost:8000/api/auth/register'
 
@@ -25,42 +26,24 @@ export default function Register() {
     setEmailCheck('')
     setPassWordCheck('')
 
-    const data = {
+    const inputs = {
       username: usernameRef?.current?.value as string,
       password: passwordRef?.current?.value as string,
       email: emailRef?.current?.value as string,
     }
 
     try {
-      fetch(url,
-        {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-type': 'application/json' }
 
-        }).then(async (res) => {
+      const res = await axios.post(url, inputs);
+      //{ success: 'User has been created.' } /TODO
+    } catch (error: any) {
 
-          const resText = await res?.text()
+      const ObjError = error.response.data
 
-          const resObj = JSON?.parse(resText)
-
-          if (!res.ok) {
-
-            if (Object.keys(resObj).includes('requiredFields')) setFilledAllFields(resObj.requiredFields)
-
-            setUserNameCheck(resObj.invalidUserName ?? resObj.unavailableUserName)
-            if (Object.keys(resObj).includes('invalidPassWord')) setPassWordCheck(resObj.invalidPassWord)
-            setEmailCheck(resObj.invalidEmail ?? resObj.unavailableEmail)
-
-            throw new Error(resText)
-          }
-          //CONFIRM
-          return JSON.parse(resText)
-        })
-
-    } catch (error) {
-      console.log(error)
-      //ERROR MSG
+      if (Object.keys(ObjError).includes('requiredFields')) setFilledAllFields(ObjError.requiredFields)
+      setUserNameCheck(ObjError.invalidUserName ?? ObjError.unavailableUserName)
+      if (Object.keys(ObjError).includes('invalidPassWord')) setPassWordCheck(ObjError.invalidPassWord)
+      setEmailCheck(ObjError.invalidEmail ?? ObjError.unavailableEmail)
     }
 
   }

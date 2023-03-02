@@ -61,20 +61,20 @@ export function register(req: Request, res: Response) {
 
 export function login(req: Request, res: Response) {
 
-  if (Object.entries(req.body).length !== 2) return res.status(509).json('All fields are required!')
+  if (Object.entries(req.body).length !== 2) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
   const { username } = req?.body
 
-  if (!username || !req.body.password) return res.status(509).json('All fields are required!')
+  if (!username || !req.body.password) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
   db.query(querySelectUsername, [username], (err: any, data: any) => {
 
     if (err) return res.status(500).json(err)
-    if (data?.length === 0) return res.status(404).json('Wrong password or username!')
+    if (data?.length === 0) return res.status(404).json({ invalidCredentials: "Wrong password or username!" })
 
     const checkPassword = bcrypt.compareSync(req.body.password, data[0].password)
 
-    if (!checkPassword) return res.status(400).json("Wrong password or username!")
+    if (!checkPassword) return res.status(400).json({ invalidCredentials: "Wrong password or username!" })
 
     const token = jwt.sign({ id: data[0].id }, '//changeSecretKey')
 
