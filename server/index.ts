@@ -23,7 +23,7 @@ const db = mysql.createConnection({
 })
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Credentials', true as any)
   next()
 })
 
@@ -33,9 +33,9 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
+app.use('/api/auth', authRoutes)
 app.use('/api/users', usersRoutes)
 app.use('/api/games', gamesRoutes)
-app.use('/api/auth', authRoutes)
 
 
 // app.get('/games', (req: Request, res: Response) => {
