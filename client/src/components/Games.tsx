@@ -31,18 +31,13 @@ export default function Games() {
 
       await makeRequest.delete(`/api/games/delete/${id}`)
 
-      navigate('/games')
+      navigate(0)//EDIT
 
     } catch (error: any) {
 
       throw new Error(error);
     }
-
   }
-
-  if (isLoading) return <div>Loading...</div> //EDIT
-
-  if (data?.length < 1 || error) return <div>INVALID</div> //EDIT
 
   return (
     <div>

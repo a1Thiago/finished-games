@@ -27,11 +27,13 @@ export default function EditGame() {
 
     e.preventDefault()
 
+
+
     const inputs = {
       title: titleRef?.current?.value,
       cover: coverRef?.current?.value,
       hours: hoursRef?.current?.value,
-      date: dateRef?.current?.value,
+      date: dateRef?.current?.value === '' ? null : dateRef?.current?.value,
       platform: platformRef?.current?.value,
       link: linkRef?.current?.value
     }
@@ -65,7 +67,7 @@ export default function EditGame() {
           <input type="text" ref={titleRef} placeholder="title" required defaultValue={data && data[0]?.title} />
           <input type="text" ref={coverRef} placeholder="cover" defaultValue={data && data[0]?.cover} />
           <input type="number" ref={hoursRef} placeholder="hours" defaultValue={data && data[0]?.hours} />
-          <input type="date" ref={dateRef} placeholder="date" defaultValue={data && data[0]?.date} />
+          <input type="date" ref={dateRef} placeholder="date" defaultValue={data && data[0]?.date.substring(0, 10)} />
           <input type="text" ref={platformRef} placeholder="platform" defaultValue={data && data[0]?.platform} />
           <input type="text" ref={linkRef} placeholder="link" defaultValue={data && data[0]?.link} />
 

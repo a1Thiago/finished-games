@@ -15,7 +15,6 @@ import NavBar from "./components/NavBar"
 export function App() {
 
   const { currentUser } = useContext(AuthContext)
-  console.log(currentUser)
 
   const queryClient = new QueryClient()
 
@@ -44,7 +43,7 @@ export function App() {
   const router = createBrowserRouter([
 
     {
-      path: '/',
+      path: '/games',
       element:
         (<ProtectedUser>
           <Layout />
@@ -61,6 +60,10 @@ export function App() {
         },
 
       ]
+    },
+
+    {
+      path: '/', element: <Layout />, children: [{ path: '/', element: <div>HOME</div> }]
     },
     {
       path: '/login', element: (!currentUser ? <Login /> : <Navigate to={'/'} />)

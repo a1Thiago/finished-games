@@ -4,6 +4,7 @@ import { makeRequest } from "../utils/axios";
 
 export default function AddGame() {
 
+
   const navigate = useNavigate()
 
   const titleRef = useRef<HTMLInputElement>(null);
@@ -22,12 +23,12 @@ export default function AddGame() {
       title: titleRef?.current?.value,
       cover: coverRef?.current?.value,
       hours: hoursRef?.current?.value,
-      date: dateRef?.current?.value,
+      date: dateRef?.current?.value === '' ? null : dateRef?.current?.value,
       platform: platformRef?.current?.value,
       link: linkRef?.current?.value
     }
 
-    if (!inputs?.title) return
+    if (!inputs?.title) return //EDIT
 
     try {
       await makeRequest.post(`/api/games/add`, inputs)
@@ -37,10 +38,7 @@ export default function AddGame() {
 
       throw new Error(error);
     }
-
   }
-
-
 
   return (
     <div className="flex flex-col items-center    bg-red-100 h-screen">
