@@ -3,9 +3,9 @@ import { allGames, singleGame, addGame, editGame, deleteGame } from '../controll
 
 const router = express.Router()
 
-router.get('/:userId/all', allGames)
+router.get('/all', allGames)
 router.get('/:gameId', singleGame)
-router.post('/:userId/add', addGame)
+router.post('/add', addGame)
 router.put('/edit/:gameId', editGame)
 router.delete('/delete/:gameId', deleteGame)
 

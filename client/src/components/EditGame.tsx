@@ -1,25 +1,17 @@
-import useFetch from "../utils/useFetch"
 import { useParams } from "react-router-dom";
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom";
+import { makeRequest } from "../utils/axios";
+import { useQuery } from "@tanstack/react-query";
 
 export default function EditGame() {
 
   const { id } = useParams();
 
-  const url = `http://localhost:8000/game/${id}`
-
-  interface Game {
-    id: number,
-    title: string,
-    cover?: string,
-    hours?: number,
-    date?: string,
-    platform?: string,
-    link?: string
-  }
-
-  const { data, error } = useFetch<Game[]>(url)
+  const { isLoading, error, data } = useQuery(['singleGame'], async () => {
+    const game = await makeRequest.get(`/api/games/${id}`)
+    return game.data
+  })
 
   const navigate = useNavigate()
 
@@ -35,9 +27,7 @@ export default function EditGame() {
 
     e.preventDefault()
 
-    const url = `http://localhost:8000/edit/${id}`
-
-    const data = {
+    const inputs = {
       title: titleRef?.current?.value,
       cover: coverRef?.current?.value,
       hours: hoursRef?.current?.value,
@@ -46,24 +36,25 @@ export default function EditGame() {
       link: linkRef?.current?.value
     }
 
-    if (!data?.title) return
+    if (!inputs?.title) return
 
     try {
-      await fetch(url, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: { 'Content-type': 'application/json' }
-      })
-      navigate('/')
 
-    } catch (error) {
-      //ERRORRR MSG
+      await makeRequest.put(`/api/games/edit/${id}`, inputs)
+      navigate('/games')
+
+    } catch (error: any) {
+
+      throw new Error(error);
     }
-
   }
 
+  if (isLoading) return <div>Loading...</div> //EDIT
+
+  if (data?.length < 1 || error) return <div>INVALID</div> //EDIT
 
   return (
+
     <div className="flex flex-col items-center    bg-red-100 h-screen">
 
       <h1 className="mt-4">EditGame {id}</h1>

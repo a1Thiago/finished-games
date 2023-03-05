@@ -1,57 +1,65 @@
 import { Link } from "react-router-dom"
-import useFetch from "../utils/useFetch"
 import GameCard from "./sub/GameCard"
+import { useQuery } from '@tanstack/react-query'
+import { makeRequest } from "../utils/axios"
+import { useNavigate } from "react-router-dom"
+
+interface Game {
+  id: number,
+  title: string,
+  cover?: string,
+  hours?: number,
+  date?: string,
+  platform?: string,
+  link?: string
+}
+
 
 export default function Games() {
 
-  const url = 'http://localhost:8000/games'
+  const navigate = useNavigate()
 
-  interface Game {
-    id: number,
-    title: string,
-    cover?: string,
-    hours?: number,
-    date?: string,
-    platform?: string,
-    link?: string
-  }
 
+  const { isLoading, error, data } = useQuery(['games'], async () => {
+    const games = await makeRequest.get('/api/games/all')
+    return games.data
+  })
 
   const handleDelete = async (id: Number): Promise<any> => {
 
-
     try {
-      await fetch(url, {
-        method: 'DELETE',
-      })
-      //STATE RE-RENDER
-      window.location.reload()
-    } catch (error) {
-      //ERRORRR MSG
+
+      await makeRequest.delete(`/api/games/delete/${id}`)
+
+      navigate('/games')
+
+    } catch (error: any) {
+
+      throw new Error(error);
     }
 
   }
 
-  const { data, error } = useFetch<Game[]>(url)
+  if (isLoading) return <div>Loading...</div> //EDIT
 
-  if (error) return <p>There is an error.</p>
-
-  if (!data) return <p>Loading...</p>
+  if (data?.length < 1 || error) return <div>INVALID</div> //EDIT
 
   return (
     <div>
       Games
-      {data.map((game) => {
-        return (
-          <div key={game.id}>
-            <GameCard game={game} />
-            <button onClick={() => handleDelete(game?.id)}>DELETE</button>
-            <button ><Link to={`/edit/${game.id}`}>EDIT</Link></button>
-          </div>
-        )
-      })}
+      {error ? 'error'
+        : isLoading ? 'loading'
+          : data?.map((game: any) => {
+            return (
+              <div key={game.id}>
+                <GameCard game={game} />
+                <button onClick={() => handleDelete(game?.id)}>DELETE</button>
+                <button ><Link to={`/games/edit/${game.id}`}>EDIT</Link></button>
+              </div>
+            )
+          })}
       <button>
-        <Link to={'/add'}>ADD</Link>
+        <Link to={'/games/add'}>ADD</Link>
       </button>
     </div>
   )

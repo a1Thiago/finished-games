@@ -76,7 +76,7 @@ export function login(req: Request, res: Response) {
 
     if (!checkPassword) return res.status(400).json({ invalidCredentials: "Wrong password or username!" })
 
-    const token = jwt.sign({ id: data[0].id }, '//changeSecretKey')
+    const token = jwt.sign({ id: data[0].id }, 'secretKey')
 
     const { password, ...others } = data[0]
 

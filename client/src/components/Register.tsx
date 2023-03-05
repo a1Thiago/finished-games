@@ -1,10 +1,14 @@
 import { useRef, useState } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 const url = 'http://localhost:8000/api/auth/register'
 
 
 export default function Register() {
+
+  const navigate = useNavigate()
+
 
   const [filledAllFields, setFilledAllFields] = useState<string>('')
 
@@ -36,6 +40,8 @@ export default function Register() {
 
       const res = await axios.post(url, inputs);
       //{ success: 'User has been created.' } /TODO
+      navigate('/')
+
     } catch (error: any) {
 
       const ObjError = error.response.data

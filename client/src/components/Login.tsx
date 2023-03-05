@@ -22,7 +22,7 @@ export default function Login() {
     try {
       await login(data)
       setCredentialsCheck('')
-      navigate('/')
+      navigate('/games')
     } catch (error) {
 
       setCredentialsCheck((loginError?.invalidCredentials ?? loginError?.requiredFields))

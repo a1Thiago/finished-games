@@ -1,9 +1,8 @@
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom";
+import { makeRequest } from "../utils/axios";
 
 export default function AddGame() {
-
-  const url = 'http://localhost:8000/add'
 
   const navigate = useNavigate()
 
@@ -19,7 +18,7 @@ export default function AddGame() {
 
     e.preventDefault()
 
-    const data = {
+    const inputs = {
       title: titleRef?.current?.value,
       cover: coverRef?.current?.value,
       hours: hoursRef?.current?.value,
@@ -28,21 +27,20 @@ export default function AddGame() {
       link: linkRef?.current?.value
     }
 
-    if (!data?.title) return
+    if (!inputs?.title) return
 
     try {
-      await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-type': 'application/json' }
-      })
-      navigate('/')
+      await makeRequest.post(`/api/games/add`, inputs)
+      navigate('/games')
 
-    } catch (error) {
-      //ERRORRR MSG
+    } catch (error: any) {
+
+      throw new Error(error);
     }
 
   }
+
+
 
   return (
     <div className="flex flex-col items-center    bg-red-100 h-screen">
@@ -54,7 +52,7 @@ export default function AddGame() {
           <input type="text" ref={titleRef} placeholder="title" required />
           <input type="url" ref={coverRef} placeholder="cover" />
           <input type="number" ref={hoursRef} placeholder="hours" defaultValue={0} />
-          <input type="date" ref={dateRef} placeholder="date" />
+          <input type="date" ref={dateRef} placeholder="date" defaultValue={new Date().toISOString().substring(0, 10)} />
           <input type="text" ref={platformRef} placeholder="platform" />
           <input type="url" ref={linkRef} placeholder="link" />
 
