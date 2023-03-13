@@ -19,7 +19,7 @@ export default function NavBar() {
   }
 
   return (
-    <div className="bg-slate-800 text-white">
+    <div className="bg-slate-800 text-black">
       {currentUser && <button onClick={handleLogOut}>Logout</button>}
       {!currentUser && <button onClick={() => navigate('/login')}>Login</button>}
       {!currentUser && <button onClick={() => navigate('/register')}>Register</button>}

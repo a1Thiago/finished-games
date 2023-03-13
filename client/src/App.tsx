@@ -1,9 +1,9 @@
-// import './App.css'
+import './App.css'
 import { Navigate, Outlet, createBrowserRouter } from "react-router-dom"
-import Games from "./components/Games"
+import Games from "@components/Games"
 import AddGame from "./components/AddGame"
 import EditGame from "./components/EditGame"
-import Home from "./components/Home"
+import Home from "@components/Home"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import { RouterProvider } from "react-router-dom"
@@ -63,7 +63,7 @@ export function App() {
     },
 
     {
-      path: '/', element: <Layout />, children: [{ path: '/', element: <div>HOME</div> }]
+      path: '/', element: <Layout />, children: [{ path: '/', element: <Home /> }]
     },
     {
       path: '/login', element: (!currentUser ? <Login /> : <Navigate to={'/'} />)

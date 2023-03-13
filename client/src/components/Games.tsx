@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import GameCard from "./sub/GameCard"
+import GameCard from "./ui/GameCard"
 import { useQuery } from '@tanstack/react-query'
 import { makeRequest } from "../utils/axios"
 import { useNavigate } from "react-router-dom"
