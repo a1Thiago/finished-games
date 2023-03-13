@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import Text from "./Text"
+import Text from "../Text/Text"
 
 type ButtonProps = {
   label: string,

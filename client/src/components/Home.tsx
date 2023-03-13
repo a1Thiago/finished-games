@@ -1,8 +1,8 @@
-import Button from "@ui/Button"
-import Input from "@ui/Input"
-import Text from "@ui/Text"
-import TextLink from "@ui/TextLink"
-import Heading from "./ui/heading"
+import Button from "@components/ui/Button/Button"
+import Input from "@ui/InputLabel/InputLabel"
+import Text from "@components/ui/Text/Text"
+import TextLink from "@components/ui/TextLink/TextLink"
+import Heading from "./ui/Heading/Heading"
 
 export default function Home() {
   return (
