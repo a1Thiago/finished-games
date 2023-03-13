@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom";
-import { makeRequest } from "../utils/axios";
+import { makeRequest } from "../../utils/axios";
 
 export default function AddGame() {
 

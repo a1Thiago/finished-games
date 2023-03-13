@@ -6,7 +6,7 @@ type TextProps = {
   href: string
 }
 
-export default function TextLink({ children, href, size = 'sm' }: TextProps) {
+export default function TextLink({ children, href = '#', size = 'sm' }: TextProps) {
   return (
     <a className={clsx('underline font-semibold',
       {

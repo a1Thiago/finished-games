@@ -1,7 +1,7 @@
 import './App.css'
 import { Navigate, Outlet, createBrowserRouter } from "react-router-dom"
 import Games from "@components/Games"
-import AddGame from "./components/AddGame"
+import AddGame from "./components/pages/AddGame"
 import EditGame from "./components/EditGame"
 import Home from "@components/Home"
 import Login from "./components/Login"
