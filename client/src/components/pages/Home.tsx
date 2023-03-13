@@ -1,7 +1,7 @@
-import Button from "@components/ui/Button/Button"
+import Button from "@ui/Button/Button"
 import Input from "@ui/InputLabel/InputLabel"
-import Text from "@components/ui/Text/Text"
-import TextLink from "@components/ui/TextLink/TextLink"
+import Text from "@ui/Text/Text"
+import TextLink from "@ui/TextLink/TextLink"
 import Heading from "@ui/Heading/Heading"
 
 export default function Home() {
@@ -14,9 +14,9 @@ export default function Home() {
       <TextLink href="#">Test</TextLink>
       <Heading size="lg"><h1>gg</h1></Heading>
 
-      <Button label="test" type="primary" />
+      {/* <Button label="test" type="primary" />
       <Button label="secondary" type="secondary" />
-      <Button label="warn" type="warn" />
+      <Button label="warn" type="warn" /> */}
       <br />
       HOME
     </div>

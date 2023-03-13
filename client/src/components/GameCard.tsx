@@ -10,15 +10,18 @@ type GameCardProps = {
     hours?: number,
     date?: string,
     platform?: string,
-    link?: string
-  }
+    link?: string,
+
+  },
+  handleEdit: () => void
+  handleDelete: () => void
 }
 
-export default function GameCard({ game }: GameCardProps) {
+export default function GameCard({ game, handleDelete, handleEdit }: GameCardProps) {
 
   return (
 
-    <div className="text-center flex flex-col w-80  bg-white px-4 py-2 items-center gap-4 ">
+    <div className="text-center flex flex-col w-80  bg-white px-4 py-2 items-center gap-4 shadow-custom">
       {/* {game.id}
       {game.title}
       {game.cover}
@@ -26,20 +29,20 @@ export default function GameCard({ game }: GameCardProps) {
       {game.date}
       {game.platform}
       {game.link} */}
-      <Heading><h2>Title</h2></Heading>
+      <Text size="md"><h2 className="font-semibold">{game?.title}</h2></Text>
 
       <div className="h-60 w-40 bg-black-60"><img src={game?.cover} alt={game?.cover} /></div>
 
       <div className="h-16 w-72 flex gap-4">
         <div className="w-full flex flex-col gap-2">
-          <Text size="md">Hours to finish</Text>
-          <Text size="sm">
+          <Text size="sm">Hours to finish</Text>
+          <Text size="xs">
             {game?.hours}h
           </Text>
         </div>
         <div className="w-full flex flex-col gap-2">
-          <Text size="md">Date of finish</Text>
-          <Text size="sm">
+          <Text size="sm">Date of finish</Text>
+          <Text size="xs">
             {game?.date}h
           </Text>
         </div>
@@ -49,14 +52,14 @@ export default function GameCard({ game }: GameCardProps) {
 
         <div className="h-16 w-72 flex gap-4">
           <div className="w-full flex flex-col gap-2">
-            <Text size="md">Platform</Text>
-            <Text size="sm">
+            <Text size="sm">Platform</Text>
+            <Text size="xs">
               {game?.platform}Plat
             </Text>
           </div>
           <div className="w-full flex flex-col gap-2">
-            <Text size="md">Store Link</Text>
-            <Text size="sm">
+            <Text size="sm">Store Link</Text>
+            <Text size="xs">
               {game?.link}icon
             </Text>
           </div>
@@ -64,8 +67,8 @@ export default function GameCard({ game }: GameCardProps) {
 
       </div>
       <div className="flex w-full gap-4">
-        <Button type="primary" label="Edit" />
-        <Button type="warn" label="Delete" />
+        <Button onClick={handleEdit} type="primary" label="Edit" />
+        <Button onClick={handleDelete} type="warn" label="Delete" />
       </div>
 
     </div>

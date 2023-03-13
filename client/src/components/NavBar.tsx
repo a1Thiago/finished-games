@@ -1,7 +1,8 @@
-import { makeRequest } from "../utils/axios"
+import { makeRequest } from "../utils/axios";
+import { AuthContext } from "../contexts/AuthContext";
+// import { AuthContext } from "@contexts/AuthContext";
+// import { makeRequest } from "@utils/axios";
 import { useContext } from "react"
-import { AuthContext } from "../contexts/AuthContext"
-
 import { useNavigate } from "react-router-dom";
 
 

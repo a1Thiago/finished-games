@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
-import GameCard from "./ui/GameCard"
+import GameCard from "@components/GameCard"
 import { useQuery } from '@tanstack/react-query'
-import { makeRequest } from "../utils/axios"
+import { makeRequest } from "@utils/axios"
 import { useNavigate } from "react-router-dom"
 
 interface Game {
@@ -47,9 +47,9 @@ export default function Games() {
           : data?.map((game: any) => {
             return (
               <div key={game.id}>
-                <GameCard game={game} />
-                <button onClick={() => handleDelete(game?.id)}>DELETE</button>
-                <button ><Link to={`/games/edit/${game.id}`}>EDIT</Link></button>
+                <GameCard game={game}
+                  handleEdit={() => navigate(`/games/edit/${game.id}`)}
+                  handleDelete={() => handleDelete(game?.id)} />
               </div>
             )
           })}

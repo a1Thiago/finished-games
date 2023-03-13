@@ -28,7 +28,13 @@
         "./components/ui/*"
       ],
       "@pages/*": [
-        ".components/pages/*"
+        "./components/pages/*"
+      ],
+      "@contexts/*": [
+        "./contexts/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
       ],
     }
   },

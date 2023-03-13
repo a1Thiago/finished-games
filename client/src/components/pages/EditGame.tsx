@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom";
-import { makeRequest } from "../utils/axios";
+import { makeRequest } from "@utils/axios";
 import { useQuery } from "@tanstack/react-query";
 
 export default function EditGame() {
