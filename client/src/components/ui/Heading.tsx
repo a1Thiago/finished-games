@@ -1,11 +1,11 @@
 import clsx from "clsx"
 
-type HeaderProps = {
+type HeadingProps = {
   size?: 'lg' | 'xl' | '2xl'
   children: React.ReactNode
 }
 
-export default function Header({ children, size = 'lg' }: HeaderProps) {
+export default function Heading({ children, size = 'lg' }: HeadingProps) {
   return (
     <span className={clsx('font-bold',
       {

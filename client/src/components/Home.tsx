@@ -2,7 +2,7 @@ import Button from "@ui/Button"
 import Input from "@ui/Input"
 import Text from "@ui/Text"
 import TextLink from "@ui/TextLink"
-import Header from "@ui/Header"
+import Heading from "./ui/heading"
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
 
       <Text>Test</Text>
       <TextLink href="#">Test</TextLink>
-      <Header size="lg"><h1>gg</h1></Header>
+      <Heading size="lg"><h1>gg</h1></Heading>
 
       <Button label="test" type="primary" />
       <Button label="secondary" type="secondary" />
