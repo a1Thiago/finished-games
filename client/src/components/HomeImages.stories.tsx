@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import HomeImages from './HomeImages';
 
 export default {
-  title: 'components/pages/HomeImages',
+  title: 'components/HomeImages',
   component: HomeImages,
   argTypes: {
   },

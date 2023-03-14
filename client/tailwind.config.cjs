@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -13,6 +15,12 @@ module.exports = {
       lg: 20,
       xl: 24,
       '2xl': 40,
+    },
+
+    screens: {
+      'tablet': { 'max': '768px' },
+      'mobile': { 'max': '414px' },
+      ...defaultTheme.screens,
     },
 
     colors: {
@@ -47,6 +55,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: 'Inter, sans-serif'
+
       }
     },
   },
