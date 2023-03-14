@@ -10,7 +10,8 @@ import { RouterProvider } from "react-router-dom"
 import { useContext } from "react"
 import { AuthContext } from "./contexts/AuthContext"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import NavBar from "./components/NavBar"
+import NavBar from "./components/Header"
+import Footer from '@components/Footer'
 
 export function App() {
 
@@ -29,12 +30,14 @@ export function App() {
   function Layout() {
     return (
       <QueryClientProvider client={queryClient}>
-        <div>
+        <div className='min-h-screen flex flex-col'>
           <NavBar />
-
-          <Outlet />
-
-          <h1>Footer</h1>
+          <div className='bg-blue-700 flex-1'>
+            <div className='max-w-7xl m-auto'>
+              <Outlet />
+            </div>
+          </div>
+          <Footer />
         </div>
       </QueryClientProvider>
     )

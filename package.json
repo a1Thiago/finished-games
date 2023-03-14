@@ -1,0 +1,21 @@
+{
+  "name": "finished-games",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "storybook": "npm --prefix client run storybook",
+    "client": "npm --prefix client run dev",
+    "server": "npm --prefix server run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a1Thiago/finished-games.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a1Thiago/finished-games/issues"
+  },
+  "homepage": "https://github.com/a1Thiago/finished-games#readme"
+}

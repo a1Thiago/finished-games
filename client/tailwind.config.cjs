@@ -10,9 +10,9 @@ module.exports = {
       xs: 14,
       sm: 16,
       md: 18,
-      lg: 24,
-      xl: 32,
-      '2xl': 48,
+      lg: 20,
+      xl: 24,
+      '2xl': 40,
     },
 
     colors: {

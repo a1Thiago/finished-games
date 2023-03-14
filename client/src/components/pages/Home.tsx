@@ -6,19 +6,12 @@ import Heading from "@ui/Heading/Heading"
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-screen flex-col">
-      <Input label="username" type="text" placeholder="username" />
-      <Input label="username" type="date" placeholder="username" />
-
-      <Text>Test</Text>
-      <TextLink href="#">Test</TextLink>
-      <Heading size="lg"><h1>gg</h1></Heading>
-
-      {/* <Button label="test" type="primary" />
-      <Button label="secondary" type="secondary" />
-      <Button label="warn" type="warn" /> */}
-      <br />
-      HOME
+    <div className="text-white">
+      <div className="mt-32">
+        <Heading size="2xl"><h1>Catalog your game Collection</h1></Heading>
+        <Heading size="xl"><h2>Organize all your finished games into one master collection</h2></Heading>
+        <Text><TextLink href="#">Sign Up</TextLink>  or <TextLink href="#">Log in</TextLink> to start</Text>
+      </div>
     </div>
   )
 }
