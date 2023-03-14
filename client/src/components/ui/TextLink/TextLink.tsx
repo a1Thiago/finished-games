@@ -4,17 +4,19 @@ type TextProps = {
   size?: 'xs' | 'sm' | 'md'
   children: React.ReactNode
   href: string
+  className?: string
 }
 
-export default function TextLink({ children, href = '#', size = 'sm' }: TextProps) {
+export default function TextLink({ children, href = '#', size = 'sm', className }: TextProps) {
   return (
     <a className={clsx('underline font-semibold',
       {
         'text-xs': size === 'xs',
         'text-sm': size === 'sm',
         'text-md': size === 'md',
-      }
-    )} href={href}>
+      }, className
+    )
+    } href={href}>
       {children}
     </a>
   )
