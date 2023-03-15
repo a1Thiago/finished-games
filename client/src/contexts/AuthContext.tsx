@@ -40,7 +40,9 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
         withCredentials: true
       })
 
-      setCurrentUser(res.data)
+      setTimeout(() => {
+        setCurrentUser(res.data)
+      }, 3000);
 
     } catch (error: any) {
       setLoginError(error?.response?.data)

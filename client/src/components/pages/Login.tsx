@@ -19,62 +19,43 @@ export default function Login() {
 
   const handleLogin = async () => {
 
-    const data = {
-      username: usernameRef?.current?.value as string,
-      password: passwordRef?.current?.value as string,
+    const fixRef = (ref: any) => ref?.current?.children[0].children[1]?.value //TODO
+
+    const inputs = {
+      username: fixRef(usernameRef) as string,
+      password: fixRef(passwordRef) as string,
     }
 
     try {
-      await login(data)
-      setCredentialsCheck('')
-      navigate('/games')
-    } catch (error) {
+      await login(inputs)
 
+      setCredentialsCheck('Loading...')
+
+    } catch (error) {
       setCredentialsCheck((loginError?.invalidCredentials ?? loginError?.requiredFields))
 
     }
   }
 
   return (
-    <>
-      <div>Login
-        {credentialsCheck}
-        <div>
-          <label htmlFor="username">username</label>
-          <input name="username" id="username" type="text" ref={usernameRef} />
-        </div>
 
-        <div>
-          <label htmlFor="password" >password</label>
-          <input name="password" id="password" type="text" ref={passwordRef} />
-        </div>
+    <div className="m-auto p-4 grid gap-4 max-w-lg bg-white shadow-custom">
+      <Heading ><h2 className="text-center">Log In</h2></Heading>
 
-        <div>
-          <label htmlFor="login">login</label>
-          <button name="login" id="login" onClick={handleLogin}>login</button>
-        </div>
+      <Text className="text-blue-700">{credentialsCheck}</Text>
 
+      <div ref={usernameRef}>
+        <InputLabel label="Username" type="text" placeholder="userName" />
       </div>
 
-      <div className="m-auto p-4 grid gap-4 max-w-lg bg-white shadow-custom">
-        <Heading ><h2 className="text-center">Log In</h2></Heading>
+      <div ref={passwordRef} >
+        <InputLabel label="Password" type="password" placeholder="**********" />
+      </div>
 
-        <Text className="text-redAlert-100">{credentialsCheck}</Text>
+      <div className="text-center">
+        <Button label="Login" onClick={handleLogin} type="primary" />
+      </div>
 
-        <div ref={usernameRef}>
-          <InputLabel label="Username" type="text" placeholder="userName" />
-        </div>
-
-        <div ref={passwordRef} >
-          <InputLabel label="Password" type="password" placeholder="**********" />
-        </div>
-
-        <div className="text-center">
-          <Button label="Register" onClick={handleLogin} type="primary" />
-        </div>
-
-      </div>s
-
-    </>
+    </div>
   )
 }

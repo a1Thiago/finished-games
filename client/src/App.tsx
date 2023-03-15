@@ -69,7 +69,7 @@ export function App() {
       path: '/', element: <Layout />, children: [{ path: '/', element: <Home /> }]
     },
     {
-      path: '/login', element: (!currentUser ? <Login /> : <Navigate to={'/'} />)
+      path: '/login', element: (!currentUser ? <Login /> : <Navigate to={'/games'} />)
     },
     {
       path: '/register', element: (!currentUser ? <Register /> : <Navigate to={'/'} />)
