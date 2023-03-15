@@ -10,7 +10,7 @@ import { RouterProvider } from "react-router-dom"
 import { useContext } from "react"
 import { AuthContext } from "./contexts/AuthContext"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import NavBar from "./components/Header"
+import Header from "./components/Header"
 import Footer from '@components/Footer'
 
 export function App() {
@@ -28,16 +28,19 @@ export function App() {
   }
 
   function Layout() {
+
+    const globalPx = 'xsmobile:px-4 tablet:px-6 md:px-8'
+
     return (
       <QueryClientProvider client={queryClient}>
-        <div className='min-h-screen flex flex-col'>
-          <NavBar />
+        <div className='min-h-screen flex flex-col '>
+          <Header className={globalPx} />
           <div className='bg-blue-700 flex-1'>
-            <div className='max-w-7xl m-auto'>
+            <div className={`max-w-7xl m-auto ${globalPx}`}>
               <Outlet />
             </div>
           </div>
-          <Footer />
+          <Footer className={globalPx} />
         </div>
       </QueryClientProvider>
     )
@@ -68,11 +71,12 @@ export function App() {
     {
       path: '/', element: <Layout />, children: [{ path: '/', element: <Home /> }]
     },
+
     {
-      path: '/login', element: (!currentUser ? <Login /> : <Navigate to={'/games'} />)
+      path: '/login', element: <Layout />, children: [{ path: '/login', element: !currentUser ? <Login /> : <Navigate to={'/games'} /> }]
     },
     {
-      path: '/register', element: (!currentUser ? <Register /> : <Navigate to={'/'} />)
+      path: '/register', element: <Layout />, children: [{ path: '/register', element: !currentUser ? <Register /> : <Navigate to={'/'} /> }]
     },
     {
       path: '*', element: <Navigate to={'/'} />
