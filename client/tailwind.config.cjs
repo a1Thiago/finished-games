@@ -20,6 +20,7 @@ module.exports = {
     screens: {
       'tablet': { 'max': '768px' },
       'mobile': { 'max': '414px' },
+      'xsmobile': { 'max': '320px' },
       ...defaultTheme.screens,
     },
 

@@ -4,7 +4,7 @@ import Text from "../Text/Text"
 type ButtonProps = {
   label: string,
   type: 'primary' | 'secondary' | 'warn',
-  onClick: () => void
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<any>
 }
 
 export default function Button({ label, type, onClick }: ButtonProps) {

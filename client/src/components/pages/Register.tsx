@@ -1,6 +1,11 @@
 import { useRef, useState } from "react"
-import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import Heading from "@ui/Heading/Heading";
+import Text from "@ui/Text/Text";
+import InputLabel from '@ui/InputLabel/InputLabel'
+import Button from "@components/ui/Button/Button";
+import { makeRequest } from "@utils/axios";
+import TextLink from "@components/ui/TextLink/TextLink";
 
 const url = 'http://localhost:8000/api/auth/register'
 
@@ -9,8 +14,8 @@ export default function Register() {
 
   const navigate = useNavigate()
 
-
   const [filledAllFields, setFilledAllFields] = useState<string>('')
+  const [userCreated, setUserCreated] = useState<string>('')
 
   const [passWordCheck, setPassWordCheck] = useState<string>('')
   const [userNameCheck, setUserNameCheck] = useState<string>('')
@@ -30,17 +35,23 @@ export default function Register() {
     setEmailCheck('')
     setPassWordCheck('')
 
+    const fixRef = (ref: any) => ref?.current?.children[0].children[1]?.value //TODO
+
     const inputs = {
-      username: usernameRef?.current?.value as string,
-      password: passwordRef?.current?.value as string,
-      email: emailRef?.current?.value as string,
+      username: fixRef(usernameRef) as string,
+      password: fixRef(passwordRef) as string,
+      email: fixRef(emailRef) as string,
     }
 
     try {
 
-      const res = await axios.post(url, inputs);
-      //{ success: 'User has been created.' } /TODO
-      navigate('/')
+      const res = await makeRequest.post(url, inputs)
+
+      setUserCreated(res.data.success)
+
+      setTimeout(() => {
+        navigate('/login')
+      }, 3000)
 
     } catch (error: any) {
 
@@ -55,29 +66,26 @@ export default function Register() {
   }
 
   return (
-    <div>Register
-      <p>{filledAllFields}</p>
-      <div>
-        <label htmlFor="username">username</label>
-        <input name="username" id="username" type="text" ref={usernameRef} />
-        <p>{userNameCheck}</p>
+    <div className="m-auto p-4 grid gap-4 max-w-lg bg-white shadow-custom">
+      <Heading ><h2 className="text-center">Register</h2></Heading>
+
+      <Text className="text-redAlert-100">{filledAllFields}</Text>
+      {userCreated && <Text size="md" className="text-blue-700">{userCreated} <TextLink size="md" className="text-blue-700" href="/login">Click to login</TextLink> </Text>}
+
+      <div ref={usernameRef}>
+        <InputLabel label="Username" type="text" placeholder="userName" invalid={userNameCheck} />
       </div>
 
-      <div>
-        <label htmlFor="password">password</label>
-        <input name="password" id="password" type="password" ref={passwordRef} />
-        <p>{passWordCheck}</p>
+      <div ref={passwordRef} >
+        <InputLabel label="Password" type="password" placeholder="**********" invalid={passWordCheck} />
       </div>
 
-      <div>
-        <label htmlFor="email">email</label>
-        <input name="email" type="email" ref={emailRef} />
-        <p>{emailCheck}</p>
+      <div ref={emailRef} >
+        <InputLabel label="Email" type="email" placeholder="example@example.com" invalid={emailCheck} />
       </div>
 
-      <div>
-        <label htmlFor="enter">enter</label>
-        <button name="enter" id="enter" onClick={handleClick}>enter</button>
+      <div className="text-center">
+        <Button label="Register" onClick={handleClick} type="primary" />
       </div>
 
     </div>

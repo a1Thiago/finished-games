@@ -4,15 +4,17 @@ type InputProps = {
   label: string
   type: string
   placeholder: string
+  invalid?: string
 }
 
-export default function Input({ type, label, placeholder }: InputProps) {
+export default function Input({ type, label, placeholder, invalid }: InputProps) {
   return (
     <div className="flex flex-col">
       <label className="mb-2 font-semibold" htmlFor={label}>
         <Text size="sm">{label}</Text>
       </label>
       <input className="focus:outline-blue-700 focus:text-black-100 text-black-60 rounded px-2 h-10 bg-blue-200" name={label} id={label} type={type} placeholder={placeholder} />
+      <Text className="text-redAlert-100">{invalid}</Text>
     </div>
   )
 }
