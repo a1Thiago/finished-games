@@ -10,6 +10,7 @@ export default {
     label: 'Default',
     placeholder: 'Default',
     type: 'text',
+    autoComplete: '...'
   },
 
   argTypes: {

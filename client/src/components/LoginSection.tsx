@@ -6,7 +6,7 @@ import Button from "@ui/Button/Button";
 import InputLabel from "@ui/InputLabel/InputLabel";
 import TextLink from "@ui/TextLink/TextLink";
 
-export default function Login() {
+export default function LoginSection() {
 
   const { login, loginError } = useContext(AuthContext)
 
@@ -45,20 +45,21 @@ export default function Login() {
         <Heading ><h2 className="text-center">Log In</h2></Heading>
 
         <Text className="text-redAlert-100">{credentialsCheck}</Text>
+        <div className="grid gap-4">
+          <div ref={usernameRef}>
+            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" />
+          </div>
 
-        <div ref={usernameRef}>
-          <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" />
-        </div>
+          <div ref={passwordRef} >
+            <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" />
+          </div>
 
-        <div ref={passwordRef} >
-          <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" />
-        </div>
-
-        <div className="text-center mt-8">
-          <Button label="Login" style="primary" />
-        </div>
-        <div className="text-center mt-4">
-          <TextLink className="mobile:text-xs" href="/register">Don't have an account? Sign up</TextLink>
+          <div className="text-center mt-8">
+            <Button label="Login" style="primary" />
+          </div>
+          <div className="text-center mt-4">
+            <TextLink className="mobile:text-xs" href="/register">Don't have an account? Sign up</TextLink>
+          </div>
         </div>
       </form>
     </div>

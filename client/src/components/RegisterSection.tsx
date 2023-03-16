@@ -77,23 +77,22 @@ export default function Register() {
 
         <Text className="text-redAlert-100">{filledAllFields}</Text>
         {userCreated && <Text size="md" className="text-blue-700">{userCreated} <TextLink size="md" className="text-blue-700" href="/login">Click to login</TextLink> </Text>}
+        <div className="grid gap-4">
+          <div ref={usernameRef}>
+            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" />
+          </div>
 
-        <div ref={usernameRef}>
-          <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" />
+          <div ref={passwordRef} >
+            <InputLabel label="Password" type="password" placeholder="**********" icon="password" invalid={passWordCheck} autoComplete="new-password" />
+          </div>
+
+          <div ref={emailRef} >
+            <InputLabel label="Email" type="email" placeholder="example@example.com" icon="email" invalid={emailCheck} autoComplete="email" />
+          </div>
         </div>
-
-        <div ref={passwordRef} >
-          <InputLabel label="Password" type="password" placeholder="**********" icon="password" invalid={passWordCheck} autoComplete="new-password" />
-        </div>
-
-        <div ref={emailRef} >
-          <InputLabel label="Email" type="email" placeholder="example@example.com" icon="email" invalid={emailCheck} autoComplete="email" />
-        </div>
-
         <div className="text-center  mt-8">
           <Button label="Register" style="primary" />
         </div>
-
         <div className="text-center mt-4">
           <TextLink className="mobile:text-xs" href="/login">Already have an account? Log In.</TextLink>
         </div>
