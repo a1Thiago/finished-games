@@ -11,6 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.5",
     "@storybook/addon-a11y": "^6.5.16",
     "@storybook/addons": "^6.5.16",
     "@storybook/theming": "^6.5.16",

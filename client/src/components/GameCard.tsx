@@ -58,8 +58,8 @@ export default function GameCard({ game, handleDelete, handleEdit }: GameCardPro
       </div>
 
       <div className="flex w-full gap-4">
-        <Button onClick={handleEdit} type="primary" label="Edit" />
-        <Button onClick={handleDelete} type="warn" label="Delete" />
+        <Button onClick={handleEdit} style="primary" label="Edit" />
+        <Button onClick={handleDelete} style="warn" label="Delete" />
       </div>
 
     </div>

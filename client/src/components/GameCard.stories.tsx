@@ -22,10 +22,10 @@ export default {
   },
 } as ComponentMeta<typeof GameCard>;
 
-const Template: ComponentStory<typeof GameCard> = (args) => <GameCard game={game1}  {...args} />;
+// const Template: ComponentStory<typeof GameCard> = (args) => <GameCard game={game1}  {...args} />;
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});
 
-Default.args = {
-}
+// Default.args = {
+// }
 

@@ -34,9 +34,9 @@ export default function Header({ className }: HeaderProps) {
           {currentUser && <Heading size="lg"><h2>My Games</h2></Heading>}
         </div>
         <div className="flex gap-6 justify-end w-full">
-          {currentUser && <Button label="Log Out" onClick={handleLogOut} type="warn" />}
-          {!currentUser && <Button label="Log In" onClick={() => navigate('/login')} type="secondary" />}
-          {!currentUser && <Button label="Register" onClick={() => navigate('/register')} type="primary" />}
+          {currentUser && <Button label="Log Out" onClick={handleLogOut} style="warn" />}
+          {!currentUser && <Button label="Log In" onClick={() => navigate('/login')} style="secondary" />}
+          {!currentUser && <Button label="Register" onClick={() => navigate('/register')} style="primary" />}
         </div>
       </div>
     </header>

@@ -15,50 +15,53 @@ export default function Login() {
 
   const [credentialsCheck, setCredentialsCheck] = useState<string | undefined>(loginError?.invalidCredentials ?? loginError?.requiredFields)
 
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
+  const handleClick = async (e: any) => {
 
     e.preventDefault()
 
-    const fixRef = (ref: any) => ref?.current?.children[0].children[1]?.value //TODO
+    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[1]?.value //TODO
 
     const inputs = {
       username: fixRef(usernameRef) as string,
       password: fixRef(passwordRef) as string,
     }
 
+    if (inputs.username === '' || inputs.password === '') return setCredentialsCheck('All fields are required!')
+
     try {
-
       await login(inputs)
-
       setCredentialsCheck('Loading...')
-
     } catch (error) {
       setCredentialsCheck((loginError?.invalidCredentials ?? loginError?.requiredFields))
-
     }
   }
 
   return (
 
     <div className="grid gap-4 bg-white shadow-custom py-8 px-4 max-w-md w-full">
-      <Heading ><h2 className="text-center">Log In</h2></Heading>
 
-      <Text className="text-blue-700">{credentialsCheck}</Text>
+      <form onSubmit={handleClick}>
 
-      <div ref={usernameRef}>
-        <InputLabel label="Username" type="text" placeholder="userName" />
-      </div>
+        <Heading ><h2 className="text-center">Log In</h2></Heading>
 
-      <div ref={passwordRef} >
-        <InputLabel label="Password" type="password" placeholder="**********" />
-      </div>
+        <Text className="text-redAlert-100">{credentialsCheck}</Text>
 
-      <div className="text-center mt-8">
-        <Button label="Login" onClick={handleLogin} type="primary" />
-      </div>
-      <div className="text-center mt-4">
-        <TextLink className="mobile:text-xs" href="/register">Don't have an account? Sign up</TextLink>
-      </div>
+        <div ref={usernameRef}>
+          <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" />
+        </div>
+
+        <div ref={passwordRef} >
+          <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" />
+        </div>
+
+        <div className="text-center mt-8">
+          <Button label="Login" style="primary" />
+        </div>
+        <div className="text-center mt-4">
+          <TextLink className="mobile:text-xs" href="/register">Don't have an account? Sign up</TextLink>
+        </div>
+      </form>
     </div>
+
   )
 }

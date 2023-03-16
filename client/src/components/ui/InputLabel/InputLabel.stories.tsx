@@ -6,8 +6,20 @@ import InputLabel from './InputLabel';
 export default {
   title: 'components/ui/InputLabel',
   component: InputLabel,
+  args: {
+    label: 'Default',
+    placeholder: 'Default',
+    type: 'text',
+  },
+
   argTypes: {
-    // backgroundColor: { control: 'color' },
+    icon: {
+      control: {
+        type: 'inline-radio',
+        options: ['none', 'userName', 'password', 'email'],
+      },
+    }
+
   },
 } as ComponentMeta<typeof InputLabel>;
 
@@ -17,16 +29,15 @@ export const Default = Template.bind({});
 Default.args = {
   label: 'Default',
   placeholder: 'Default',
-  type: 'text'
+  type: 'text',
 }
-// export const Small = Template.bind({});
-// Small.args = {
-//   size: 'sm',
-//   children: 'Small'
-// }
-// export const Medium = Template.bind({});
-// Medium.args = {
-//   size: 'md',
-//   children: 'Medium'
-// }
 
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  icon: 'userName'
+}
+WithIcon.argTypes = {
+  icon: {
+    defaultValue: 'userName'
+  }
+}
