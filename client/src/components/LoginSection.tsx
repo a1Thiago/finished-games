@@ -47,11 +47,11 @@ export default function LoginSection() {
         <Text className="text-redAlert-100">{credentialsCheck}</Text>
         <div className="grid gap-4">
           <div ref={usernameRef}>
-            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" />
+            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" required />
           </div>
 
           <div ref={passwordRef} >
-            <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" />
+            <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" required />
           </div>
 
           <div className="text-center mt-8">

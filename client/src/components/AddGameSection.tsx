@@ -6,7 +6,6 @@ import InputLabel from "@ui/InputLabel/InputLabel";
 import { useNavigate } from "react-router";
 import { makeRequest } from "@utils/axios";
 
-
 export default function AddGameSection() {
 
   const navigate = useNavigate()
@@ -25,25 +24,27 @@ export default function AddGameSection() {
 
     e.preventDefault()
 
-    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[1]?.value //TODO
+    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[0].value //TODO
 
     const inputs = {
       title: fixRef(titleRef) as string,
       cover: fixRef(coverRef) as string,
-      hours: fixRef(hoursRef) as string,
-      date: fixRef(dateRef) as string,
+      hours: fixRef(hoursRef) === '' ? 0 : fixRef(hoursRef) as number,
+      date: fixRef(dateRef) === '' ? null : fixRef(dateRef) as string,
       platform: fixRef(platformRef) as string,
       link: fixRef(linkRef) as string,
     }
 
-    if (inputs.title === '') return setValidForm('Title is required!')
+    console.log(inputs)
+
+    if (!inputs.title) return setValidForm('Title is required!')
 
     try {
       await makeRequest.post(`/api/games/add`, inputs)
       navigate('/games')
 
     } catch (error: any) {
-
+      setValidForm(error.message)
       throw new Error(error);
     }
 
@@ -58,25 +59,25 @@ export default function AddGameSection() {
         <Text className="text-redAlert-100">{validForm}</Text>
         <div className="grid gap-4">
           <div ref={titleRef}>
-            <InputLabel label="Title" type="text" placeholder="Game title" />
+            <InputLabel label="Title" type="text" placeholder="Game title" required />
           </div>
           <div ref={coverRef}>
-            <InputLabel label="Cover URL" type="text" placeholder="Game cover URL" />
+            <InputLabel label="Cover URL" type="url" placeholder="Game cover URL" />
           </div>
           <div ref={hoursRef}>
-            <InputLabel label="Hours" type="text" placeholder="Game Hours" />
+            <InputLabel label="Hours" type="number" placeholder="Game Hours" />
           </div>
           <div ref={dateRef}>
-            <InputLabel label="Finish date" type="text" placeholder="Game finish date" />
+            <InputLabel label="Finish date" type="date" placeholder="Game finish date" defaultValue={new Date().toISOString().substring(0, 10)} />
           </div>
           <div ref={platformRef}>
             <InputLabel label="Platform" type="text" placeholder="Game platform" />
           </div>
           <div ref={linkRef}>
-            <InputLabel label="Storefront URL" type="text" placeholder="Game storefront URL" />
+            <InputLabel label="Storefront URL" type="url" placeholder="Game storefront URL" />
           </div>
         </div>
-        <div className="text-center mt-8 flex justify-between gap-4"> {/* TODO  */}
+        <div className="text-center mt-8 flex justify-between gap-4">
           <Button label="Cancel" style="warn" />
           <Button label="Submit" style="primary" />
         </div>

@@ -79,15 +79,15 @@ export default function Register() {
         {userCreated && <Text size="md" className="text-blue-700">{userCreated} <TextLink size="md" className="text-blue-700" href="/login">Click to login</TextLink> </Text>}
         <div className="grid gap-4">
           <div ref={usernameRef}>
-            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" />
+            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" required />
           </div>
 
           <div ref={passwordRef} >
-            <InputLabel label="Password" type="password" placeholder="**********" icon="password" invalid={passWordCheck} autoComplete="new-password" />
+            <InputLabel label="Password" type="password" placeholder="**********" icon="password" invalid={passWordCheck} autoComplete="new-password" required />
           </div>
 
           <div ref={emailRef} >
-            <InputLabel label="Email" type="email" placeholder="example@example.com" icon="email" invalid={emailCheck} autoComplete="email" />
+            <InputLabel label="Email" type="email" placeholder="example@example.com" icon="email" invalid={emailCheck} autoComplete="email" required />
           </div>
         </div>
         <div className="text-center  mt-8">

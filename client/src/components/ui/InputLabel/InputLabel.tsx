@@ -8,9 +8,12 @@ type InputProps = {
   autoComplete?: string,
   invalid?: string
   icon?: 'userName' | 'password' | 'email'
+  required?: boolean
+  defaultValue?: string | number
+
 }
 
-export default function Input({ type, label, placeholder, invalid, icon, autoComplete }: InputProps) {
+export default function Input({ type, label, placeholder, invalid, icon, autoComplete, required, defaultValue }: InputProps) {
   return (
     <div className="flex flex-col">
       <label className="mb-2 font-semibold" htmlFor={label}>
@@ -21,7 +24,7 @@ export default function Input({ type, label, placeholder, invalid, icon, autoCom
         {icon === 'password' && <Lock />}
         {icon === 'email' && <Envelope />}
         <input className="bg-transparent outline-none flex-1"
-          name={label} id={label} type={type} placeholder={placeholder} autoComplete={autoComplete} />
+          name={label} id={label} type={type} placeholder={placeholder} required={required} autoComplete={autoComplete} defaultValue={defaultValue} />
       </div>
       <Text className="text-redAlert-100">{invalid}</Text>
     </div>
