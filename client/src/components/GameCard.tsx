@@ -20,9 +20,9 @@ export default function GameCard({ game, handleDelete, handleEdit }: GameCardPro
 
   return (
 
-    <div className="text-center flex flex-col w-60  bg-white px-4 py-2 items-center gap-4 shadow-custom overflow-auto  whitespace-nowrap">
+    <div className="text-center items-center flex flex-col w-60  bg-white px-4 py-2  gap-4 shadow-custom rounded ">
 
-      <Text size="md"><h2 className="font-semibold ">{title}</h2></Text>
+      <div className="whitespace-nowrap text-ellipsis overflow-hidden w-[99%]" title={title}><Text size="md" ><h2 className="font-semibold ">{title}</h2></Text></div>
 
       <div className="h-60 w-40 bg-black-60"><img className="h-full w-full object-fill" src={cover} title={title} alt={`${title}cover`} /></div>
 

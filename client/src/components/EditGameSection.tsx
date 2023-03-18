@@ -37,8 +37,7 @@ export default function AddGameSection() {
       title: fixRef(titleRef) as string,
       cover: fixRef(coverRef) as string,
       hours: fixRef(hoursRef) === '' ? 0 : fixRef(hoursRef) as number,
-      // dateOfFinishRef: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef) as string,
-      dateOfFinish: fixRef(dateOfFinishRef)
+      dateOfFinish: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef) as string,
     }
 
     if (!inputs.title) return setValidForm('Title is required!')
