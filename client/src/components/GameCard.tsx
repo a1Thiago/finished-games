@@ -8,7 +8,7 @@ type GameCardProps = {
     title: string,
     cover?: string,
     hours?: number,
-    date?: string,
+    dateOfFinish?: string,
   },
   handleEdit: () => void
   handleDelete: () => void
@@ -16,7 +16,7 @@ type GameCardProps = {
 
 export default function GameCard({ game, handleDelete, handleEdit }: GameCardProps) {
 
-  const { title, cover, hours, date } = game
+  const { title, cover, hours, dateOfFinish } = game
 
   return (
 
@@ -36,7 +36,7 @@ export default function GameCard({ game, handleDelete, handleEdit }: GameCardPro
         <div className="flex flex-col gap-2">
           <Text size="sm" className="font-medium">Date of finish</Text>
           <Text size="xs">
-            {date?.substring(0, 10)}
+            {dateOfFinish?.substring(0, 10)}
           </Text>
         </div>
       </div>

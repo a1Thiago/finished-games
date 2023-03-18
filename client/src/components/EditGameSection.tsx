@@ -22,7 +22,7 @@ export default function AddGameSection() {
   const titleRef = useRef<HTMLInputElement>(null);
   const coverRef = useRef<HTMLInputElement>(null);
   const hoursRef = useRef<HTMLInputElement>(null);
-  const dateRef = useRef<HTMLInputElement>(null);
+  const dateOfFinishRef = useRef<HTMLInputElement>(null);
 
   const [validForm, setValidForm] = useState<string | undefined>('')
 
@@ -37,7 +37,8 @@ export default function AddGameSection() {
       title: fixRef(titleRef) as string,
       cover: fixRef(coverRef) as string,
       hours: fixRef(hoursRef) === '' ? 0 : fixRef(hoursRef) as number,
-      date: fixRef(dateRef) === '' ? null : fixRef(dateRef) as string,
+      // dateOfFinishRef: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef) as string,
+      dateOfFinish: fixRef(dateOfFinishRef)
     }
 
     if (!inputs.title) return setValidForm('Title is required!')
@@ -74,8 +75,8 @@ export default function AddGameSection() {
           <div ref={hoursRef}>
             <InputLabel label="Hours" type="number" placeholder="Game Hours" defaultValue={data && data[0]?.hours} />
           </div>
-          <div ref={dateRef}>
-            <InputLabel label="Finish date" type="date" placeholder="Game finish date" defaultValue={data && data[0]?.date.substring(0, 10)} />
+          <div ref={dateOfFinishRef}>
+            <InputLabel label="Finish date" type="date" placeholder="Game finish date" defaultValue={data && data[0]?.dateOfFinish?.substring(0, 10)} />
           </div>
         </div>
         <div className="text-center mt-8 flex justify-between gap-4">
