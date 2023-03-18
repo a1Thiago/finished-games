@@ -3,17 +3,8 @@ import GameCard from "@components/GameCard"
 import { useQuery } from '@tanstack/react-query'
 import { makeRequest } from "@utils/axios"
 import { useNavigate } from "react-router-dom"
-
-interface Game {
-  id: number,
-  title: string,
-  cover?: string,
-  hours?: number,
-  date?: string,
-  platform?: string,
-  link?: string
-}
-
+import Button from "@components/ui/Button/Button"
+import Heading from "@ui/Heading/Heading"
 
 export default function Games() {
 
@@ -40,22 +31,26 @@ export default function Games() {
   }
 
   return (
-    <div>
-      Games
-      {error ? 'error'
-        : isLoading ? 'loading'
-          : data?.map((game: any) => {
-            return (
-              <div key={game.id}>
-                <GameCard game={game}
-                  handleEdit={() => navigate(`/games/edit/${game.id}`)}
-                  handleDelete={() => handleDelete(game?.id)} />
-              </div>
-            )
-          })}
-      <button>
-        <Link to={'/games/add'}>ADD</Link>
-      </button>
+    <div className="">
+
+      <div className="flex bg-blue-200 p-4 my-4">
+        <Button label="Add Game" style="primary" onClick={() => navigate('/games/add')} />
+      </div>
+
+      <div className="grid grid-cols-3 gap-8">
+        {error ? 'error'
+          : isLoading ? 'loading'
+            : data?.map((game: any) => {
+              return (
+                <div key={game.id}>
+                  <GameCard game={game}
+                    handleEdit={() => navigate(`/games/edit/${game.id}`)}
+                    handleDelete={() => handleDelete(game?.id)} />
+                </div>
+              )
+            })}
+      </div>
+
     </div>
   )
 
