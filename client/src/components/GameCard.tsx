@@ -9,9 +9,6 @@ type GameCardProps = {
     cover?: string,
     hours?: number,
     date?: string,
-    platform?: string,
-    link?: string,
-
   },
   handleEdit: () => void
   handleDelete: () => void
@@ -19,7 +16,7 @@ type GameCardProps = {
 
 export default function GameCard({ game, handleDelete, handleEdit }: GameCardProps) {
 
-  const { title, cover, hours, date, platform, link } = game
+  const { title, cover, hours, date } = game
 
   return (
 
@@ -27,7 +24,7 @@ export default function GameCard({ game, handleDelete, handleEdit }: GameCardPro
 
       <Text size="md"><h2 className="font-semibold ">{title}</h2></Text>
 
-      <div className="h-60 w-40 bg-black-60"><img src={cover} alt={cover} /></div>
+      <div className="h-60 w-40 bg-black-60"><img className="h-full w-full object-fill" src={cover} title={title} alt={`${title}cover`} /></div>
 
       <div className="grid gap-4">
         <div className="flex flex-col gap-2">

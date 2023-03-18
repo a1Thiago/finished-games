@@ -7,8 +7,6 @@ const game1 = {
   "cover": "https://ptpimg.me/w4ju57.jpg",
   "hours": 12,
   "date": "2023-03-13T03:00:00.000Z",
-  "platform": "PC",
-  "link": "https://ptpimg.me/w4ju57.jpg",
   "userId": 55
 }
 
@@ -22,10 +20,10 @@ export default {
   },
 } as ComponentMeta<typeof GameCard>;
 
-const Template: ComponentStory<typeof GameCard> = (args) => <GameCard game={game1}  {...args} />;
+// const Template: ComponentStory<typeof GameCard> = (args) => <GameCard game={game1}  {...args} />;
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});
 
-Default.args = {
-}
+// Default.args = {
+// }
 
