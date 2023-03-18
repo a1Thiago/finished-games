@@ -6,8 +6,8 @@ const querySelectUserID: string = "SELECT * FROM games WHERE userid = ?"
 // const querySelectGameID: string = "SELECT * FROM games WHERE id = ?"
 const querySelectGameID: string = "SELECT * FROM games WHERE id = ? AND userid = ?"
 
-const queryAddGame: string = 'INSERT INTO games (`title`,`cover`,`hours`,`date`,`userid`) VALUES (?)'
-const queryEditGame: string = 'UPDATE games SET `title` = ?,`cover` = ?,`hours` = ?,`date` = ? WHERE id = ?'//ADD USER ID
+const queryAddGame: string = 'INSERT INTO games (`title`,`cover`,`hours`,`dateOfFinish`,`added`,`userid`) VALUES (?)'
+const queryEditGame: string = 'UPDATE games SET `title` = ?,`cover` = ?,`hours` = ?,`dateOfFinish` = ?, `lastModified` = ? WHERE id = ?'
 const queryDeleteGame: string = `DELETE FROM games WHERE id = ? AND userid = ?;`
 
 
@@ -71,15 +71,19 @@ export function addGame(req: Request, res: Response) {
 
     if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
 
+    const added = new Date()
+
     const values = [
       body.title,
       body.cover,
       body.hours,
-      body.date,
+      body.dateOfFinish,
+      added,
       userInfo.id
     ]
 
     db.query(queryAddGame, [values], (err: any, data: any) => {
+
       if (err) {
         return res.status(404).json(err).end()
       } else {
@@ -96,11 +100,14 @@ export function editGame(req: Request, res: Response) {
 
   const { gameId } = req.params
 
+  const lastModified = new Date()
+
   const values = [
     body.title,
     body.cover,
     body.hours,
-    body.date,
+    body.dateOfFinish,
+    lastModified
   ]
 
   db.query(queryEditGame, [...values, gameId], (err: any, data: any) => {
