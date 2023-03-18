@@ -23,8 +23,6 @@ export default function AddGameSection() {
   const coverRef = useRef<HTMLInputElement>(null);
   const hoursRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
-  const platformRef = useRef<HTMLInputElement>(null);
-  const linkRef = useRef<HTMLInputElement>(null);
 
   const [validForm, setValidForm] = useState<string | undefined>('')
 
@@ -40,8 +38,6 @@ export default function AddGameSection() {
       cover: fixRef(coverRef) as string,
       hours: fixRef(hoursRef) === '' ? 0 : fixRef(hoursRef) as number,
       date: fixRef(dateRef) === '' ? null : fixRef(dateRef) as string,
-      platform: fixRef(platformRef) as string,
-      link: fixRef(linkRef) as string,
     }
 
     if (!inputs.title) return setValidForm('Title is required!')
@@ -80,12 +76,6 @@ export default function AddGameSection() {
           </div>
           <div ref={dateRef}>
             <InputLabel label="Finish date" type="date" placeholder="Game finish date" defaultValue={data && data[0]?.date.substring(0, 10)} />
-          </div>
-          <div ref={platformRef}>
-            <InputLabel label="Platform" type="text" placeholder="Game platform" defaultValue={data && data[0]?.platform} />
-          </div>
-          <div ref={linkRef}>
-            <InputLabel label="Storefront URL" type="url" placeholder="Game storefront URL" defaultValue={data && data[0]?.link} />
           </div>
         </div>
         <div className="text-center mt-8 flex justify-between gap-4">

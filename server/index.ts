@@ -34,13 +34,3 @@ app.use('/api/games', gamesRoutes)
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
-
-
-// {'id','title','cover','hours','date','platform','link'}
-// 'id'
-// 'title'
-// 'cover'
-// 'hours'
-// 'date'
-// 'platform'
-// 'link'
