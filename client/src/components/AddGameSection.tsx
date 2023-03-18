@@ -66,7 +66,7 @@ export default function AddGameSection() {
           </div>
         </div>
         <div className="text-center mt-8 flex justify-between gap-4">
-          <Button label="Cancel" style="warn" />
+          <Button label="Cancel" style="warn" onClick={() => navigate('/games')} />
           <Button label="Submit" style="primary" />
         </div>
       </form>
