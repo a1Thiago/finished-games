@@ -14,7 +14,47 @@ export default function Games() {
 
     const games = await makeRequest.get('/api/games/all')
 
-    return games.data
+    let data = games.data
+
+
+    return data // addedAtAscending
+
+    // data = data.sort((a: any, b: any) => parseFloat(b.id) - parseFloat(a.id))//addedAtDescending
+
+    // data = data.sort((a: any, b: any) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))//alphabeticalAscending
+
+    // data = data.sort((a: any, b: any) => b.title.toLowerCase().localeCompare(a.title.toLowerCase()))//alphabeticalDescending
+
+    // data = data.sort((a: any, b: any) => parseFloat(a.dateOfFinish) - parseFloat(b.dateOfFinish))//dateOfFinishAscending
+
+    // data = data.sort((a: any, b: any) => parseFloat(b.hours) - parseFloat(a.hours))//hoursDescending
+
+    // data = data.sort((a: any, b: any) => parseFloat(b.id) - parseFloat(a.id))//hoursDescending
+
+    // data = data.sort((a: any, b: any) => {
+
+    //   const first = a?.dateOfFinish
+    //   const second = b?.dateOfFinish
+
+    //   if (!first || !second) {
+    //     return 0
+    //   } else {
+    //     return parseFloat(first) - parseFloat(second)
+    //   }
+    // })//dateOfFinishAscending
+
+    // data = data.sort((a: any, b: any) => {
+
+    //   const first = a?.dateOfFinish
+    //   const second = b?.dateOfFinish
+
+    //   if (!first || !second) {
+    //     return 0
+    //   } else {
+    //     return parseFloat(second) - parseFloat(first)
+    //   }
+    // })//dateOfFinishDescending
+
   })
 
 
