@@ -1,28 +1,37 @@
-import { Link } from "react-router-dom"
 import GameCard from "@components/GameCard"
-import { useQuery } from '@tanstack/react-query'
 import { makeRequest } from "@utils/axios"
 import { useNavigate } from "react-router-dom"
 import Button from "@components/ui/Button/Button"
-import Heading from "@ui/Heading/Heading"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function Games() {
 
   const navigate = useNavigate()
 
+  const queryClient = useQueryClient()
 
   const { isLoading, error, data } = useQuery(['games'], async () => {
+
     const games = await makeRequest.get('/api/games/all')
+
     return games.data
   })
+
+
+  const mutation = useMutation(async (id: number) => {
+    return await makeRequest.delete(`/api/games/delete/${id}`)
+  }, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['games'])
+    },
+  })
+
 
   const handleDelete = async (id: Number): Promise<any> => {
 
     try {
 
-      await makeRequest.delete(`/api/games/delete/${id}`)
-
-      navigate(0)//EDIT
+      mutation.mutate(id as number)
 
     } catch (error: any) {
 

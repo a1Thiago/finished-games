@@ -9,7 +9,6 @@ import Register from "./components/pages/Register"
 import { RouterProvider } from "react-router-dom"
 import { useContext } from "react"
 import { AuthContext } from "./contexts/AuthContext"
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Header from "./components/Header"
 import Footer from '@components/Footer'
 
@@ -17,7 +16,7 @@ export function App() {
 
   const { currentUser } = useContext(AuthContext)
 
-  const queryClient = new QueryClient()
+
 
   function ProtectedUser({ children }: any | React.ReactNode | JSX.Element) {//edit
 
@@ -32,17 +31,17 @@ export function App() {
     const globalPx = 'xsmobile:px-4 tablet:px-6 md:px-8'
 
     return (
-      <QueryClientProvider client={queryClient}>
-        <div className='min-h-screen flex flex-col '>
-          <Header className={globalPx} />
-          <div className='bg-blue-700 flex-1'>
-            <div className={`max-w-7xl m-auto ${globalPx}`}>
-              <Outlet />
-            </div>
+
+      <div className='min-h-screen flex flex-col '>
+        <Header className={globalPx} />
+        <div className='bg-blue-700 flex-1'>
+          <div className={`max-w-7xl m-auto ${globalPx}`}>
+            <Outlet />
           </div>
-          <Footer className={globalPx} />
         </div>
-      </QueryClientProvider>
+        <Footer className={globalPx} />
+      </div>
+
     )
   }
 

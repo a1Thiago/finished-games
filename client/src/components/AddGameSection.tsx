@@ -5,6 +5,8 @@ import Button from "@ui/Button/Button";
 import InputLabel from "@ui/InputLabel/InputLabel";
 import { useNavigate } from "react-router";
 import { makeRequest } from "@utils/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 
 export default function AddGameSection() {
 
@@ -17,6 +19,15 @@ export default function AddGameSection() {
 
   const [validForm, setValidForm] = useState<string | undefined>('')
 
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation(async (addGame) => {
+    return await makeRequest.post(`/api/games/add`, addGame)
+  }, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['games'])
+    },
+  })
 
   const handleClick = async (e: any) => {
 
@@ -34,7 +45,8 @@ export default function AddGameSection() {
     if (!inputs.title) return setValidForm('Title is required!')
 
     try {
-      await makeRequest.post(`/api/games/add`, inputs)
+      mutation.mutate(inputs as any)
+      // await makeRequest.post(`/api/games/add`, inputs)
       navigate('/games')
 
     } catch (error: any) {
