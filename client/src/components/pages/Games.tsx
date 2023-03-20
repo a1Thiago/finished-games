@@ -3,6 +3,7 @@ import { makeRequest } from "@utils/axios"
 import { useNavigate } from "react-router-dom"
 import Button from "@components/ui/Button/Button"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import Listbox from "@ui/ListBox/ListBox";
 
 export default function Games() {
 
@@ -19,13 +20,17 @@ export default function Games() {
 
     return data // addedAtAscending
 
+    // data = data.sort((a: any, b: any) => parseFloat(a.dateOfFinish) - parseFloat(b.dateOfFinish))//dateOfFinishAscending
+
+
+
+
     // data = data.sort((a: any, b: any) => parseFloat(b.id) - parseFloat(a.id))//addedAtDescending
 
     // data = data.sort((a: any, b: any) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))//alphabeticalAscending
 
     // data = data.sort((a: any, b: any) => b.title.toLowerCase().localeCompare(a.title.toLowerCase()))//alphabeticalDescending
 
-    // data = data.sort((a: any, b: any) => parseFloat(a.dateOfFinish) - parseFloat(b.dateOfFinish))//dateOfFinishAscending
 
     // data = data.sort((a: any, b: any) => parseFloat(b.hours) - parseFloat(a.hours))//hoursDescending
 
@@ -82,8 +87,12 @@ export default function Games() {
   return (
     <div className="">
 
-      <div className="flex bg-blue-200 p-4 my-4">
+
+      <div className="flex bg-blue-200 p-4 my-4 justify-between ">
         <Button label="Add Game" style="primary" onClick={() => navigate('/games/add')} />
+        <div className="h-10 grid justify-center">
+          <Listbox />
+        </div>
       </div>
 
       <div className="grid grid-cols-3 gap-8">

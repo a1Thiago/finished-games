@@ -12,11 +12,12 @@ export default {
   },
 } as ComponentMeta<typeof EditGame>;
 
-const Template: ComponentStory<typeof EditGame> = (args) => <QueryClientProvider client={queryClient}>
-  <BrowserRouter>
-    <EditGame />
-  </BrowserRouter>
-</QueryClientProvider>;
+const Template: ComponentStory<typeof EditGame> = (args) =>
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <EditGame />
+    </BrowserRouter>
+  </QueryClientProvider>;
 
 export const Default = Template.bind({});
 
