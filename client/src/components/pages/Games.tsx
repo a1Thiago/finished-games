@@ -1,9 +1,10 @@
-import GameCard from "@components/GameCard"
-import { makeRequest } from "@utils/axios"
 import { useNavigate } from "react-router-dom"
-import Button from "@components/ui/Button/Button"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import Listbox from "@ui/ListBox/ListBox";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import GameCard from "@components/GameCard"
+import Button from "@ui/Button/Button"
+import Listbox from "@ui/ListBox/ListBox"
+import { sortGames } from "@utils/sortGames"
+import { makeRequest } from "@utils/axios"
 
 export default function Games() {
 
@@ -17,48 +18,17 @@ export default function Games() {
 
     let data = games.data
 
+    return sortGames.addedAtAscending(data)
+    // return sortGames.addedAtDescending(data)
 
-    return data // addedAtAscending
+    // return sortGames.alphabeticalAscending(data)
+    // return sortGames.alphabeticalDescending(data)
 
-    // data = data.sort((a: any, b: any) => parseFloat(a.dateOfFinish) - parseFloat(b.dateOfFinish))//dateOfFinishAscending
+    // return sortGames.hoursAscending(data)
+    // return sortGames.hoursDescending(data)
 
-
-
-
-    // data = data.sort((a: any, b: any) => parseFloat(b.id) - parseFloat(a.id))//addedAtDescending
-
-    // data = data.sort((a: any, b: any) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))//alphabeticalAscending
-
-    // data = data.sort((a: any, b: any) => b.title.toLowerCase().localeCompare(a.title.toLowerCase()))//alphabeticalDescending
-
-
-    // data = data.sort((a: any, b: any) => parseFloat(b.hours) - parseFloat(a.hours))//hoursDescending
-
-    // data = data.sort((a: any, b: any) => parseFloat(b.id) - parseFloat(a.id))//hoursDescending
-
-    // data = data.sort((a: any, b: any) => {
-
-    //   const first = a?.dateOfFinish
-    //   const second = b?.dateOfFinish
-
-    //   if (!first || !second) {
-    //     return 0
-    //   } else {
-    //     return parseFloat(first) - parseFloat(second)
-    //   }
-    // })//dateOfFinishAscending
-
-    // data = data.sort((a: any, b: any) => {
-
-    //   const first = a?.dateOfFinish
-    //   const second = b?.dateOfFinish
-
-    //   if (!first || !second) {
-    //     return 0
-    //   } else {
-    //     return parseFloat(second) - parseFloat(first)
-    //   }
-    // })//dateOfFinishDescending
+    // return sortGames.dateOfFinishAscending(data)
+    // return sortGames.dateOfFinishDescending(data)
 
   })
 
