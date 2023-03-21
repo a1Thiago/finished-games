@@ -1,34 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 
-// type ListBoxProps = {
-
-// }
-
-const options = [
-  { id: 1, name: 'Durward Reynolds', unavailable: false },
-  { id: 2, name: 'Kenton Towne', unavailable: false },
-  { id: 3, name: 'Therese Wunsch', unavailable: false },
-  { id: 4, name: 'Benedict Kessler', unavailable: true },
-  { id: 5, name: 'Katelyn Rohan', unavailable: false },
-]
-
-
-
 type ListBoxProps = {
-  options?: Array<{}>
+
+  optionsArray: Array<{
+    id: number
+    option: string
+    fn: (data: []) => []
+  }>,
+
+  selectedOption: React.Dispatch<React.SetStateAction<{}>>
 }
 
-export default function ListBox(optionsArray: ListBoxProps) {
+export default function ListBox({ optionsArray, selectedOption }: ListBoxProps) {
 
-  const [selected, setSelected] = useState(options[0])
+  const [selected, setSelected] = useState(optionsArray[0])
+
+  useEffect(() => {
+    selectedOption(selected)
+  }, [])
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
-
+    <Listbox value={selected} onChange={setSelected} >
       <Listbox.Button className="inline-flex justify-center px-4 py-2 rounded-t font-semibold 
-      bg-white text-blue-700  ring-1 ring-inset ring-blue-700 hover:opacity-95">
-        {selected.name}
+      bg-white text-blue-700  ring-1 ring-inset ring-blue-700 hover:opacity-90">
+        {selected?.option}
       </Listbox.Button>
       <Transition
         enter="transition duration-100 ease-out"
@@ -39,18 +35,17 @@ export default function ListBox(optionsArray: ListBoxProps) {
         leaveTo="transform scale-95 opacity-0"
       >
         <Listbox.Options className="grid gap-2 px-4 justify-center py-2 font-semibold rounded-b bg-blue-500">
-          {options.map((option) => (
+          {optionsArray?.map((option: any) => (
             <Listbox.Option
 
-              onClick={() => { }}
 
-              key={option.id}
+              onClick={() => selectedOption(selected)}
+
+              key={option?.id}
               value={option}
-              disabled={option.unavailable}
               className="cursor-pointer grid justify-center py-1
-             text-white  bg-blue-500 hover:bg-blue-450 hover:text-opacity-90"
-            >
-              {option.name}
+             text-white  bg-blue-500 hover:bg-blue-450 hover:text-opacity-90">
+              {option.option}
             </Listbox.Option>
           ))}
         </Listbox.Options>
@@ -58,3 +53,14 @@ export default function ListBox(optionsArray: ListBoxProps) {
     </Listbox>
   )
 }
+
+// const Child = ({ chooseMessage }) => {
+
+//   let msg = 'Goodbye';
+
+//   return (
+//     <div>
+//       <button onClick={() => chooseMessage(msg)}>Change    Message</button>
+//     </div>
+//   );
+// };

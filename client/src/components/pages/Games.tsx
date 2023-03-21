@@ -3,8 +3,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import GameCard from "@components/GameCard"
 import Button from "@ui/Button/Button"
 import Listbox from "@ui/ListBox/ListBox"
-import { sortGames } from "@utils/sortGames"
 import { makeRequest } from "@utils/axios"
+import { sortArray } from '@utils/sortGames'
+import { useState } from "react"
 
 export default function Games() {
 
@@ -12,28 +13,30 @@ export default function Games() {
 
   const queryClient = useQueryClient()
 
+  const [selectedOption, setSelectedOption] = useState<any>(null)
+
   const { isLoading, error, data } = useQuery(['games'], async () => {
 
     const games = await makeRequest.get('/api/games/all')
 
     let data = games.data
 
-
     return data
 
-    sortGames.addedAtAscending(data)
-    sortGames.addedAtDescending(data)
+    // sortGames.addedAtAscending(data)
+    // sortGames.addedAtDescending(data)
 
-    sortGames.alphabeticalAscending(data)
-    sortGames.alphabeticalDescending(data)
+    // sortGames.alphabeticalAscending(data)
+    // sortGames.alphabeticalDescending(data)
 
-    sortGames.hoursAscending(data)
-    sortGames.hoursDescending(data)
+    // sortGames.hoursAscending(data)
+    // sortGames.hoursDescending(data)
 
-    sortGames.dateOfFinishAscending(data)
-    sortGames.dateOfFinishDescending(data)
+    // sortGames.dateOfFinishAscending(data)
+    // sortGames.dateOfFinishDescending(data)
 
   })
+
 
 
   const mutation = useMutation(async (id: number) => {
@@ -64,12 +67,24 @@ export default function Games() {
       <div className="flex bg-blue-200 p-4 my-4 justify-between ">
         <Button label="Add Game" style="primary" onClick={() => navigate('/games/add')} />
         <div className="h-10 grid justify-center">
-          {/* <Listbox options={[]} /> */}
-          <Listbox options={[]} />
+
+          <Listbox
+            optionsArray={sortArray}
+            selectedOption={setSelectedOption}
+          />
+
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-8">
+
+
+      <div className="bg-white text-2xl">
+        {data && selectedOption && selectedOption.fn(data).map((e: any) => {
+          return e.title
+        })}
+      </div>
+
+      {/* <div className="grid grid-cols-3 gap-8">
         {error ? 'error'
           : isLoading ? 'loading'
             : data?.map((game: any) => {
@@ -81,11 +96,24 @@ export default function Games() {
                 </div>
               )
             })}
-      </div>
+      </div> */}
 
     </div>
   )
-
-
-
 }
+
+// const Parent = () => {
+//   const [message, setMessage] = useState("Hello World");
+
+//   const chooseMessage = (message) => {
+//     setMessage(message);
+//   };
+
+//   return (
+//     <div>
+//       <h1>{message}</h1>
+//       <Child chooseMessage={chooseMessage} />
+//     </div>
+//   );
+
+// };
