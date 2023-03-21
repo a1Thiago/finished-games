@@ -1,4 +1,10 @@
-export const sortGames = {
+type sortArray = {
+  id: number;
+  option: string;
+  fn: (data: []) => [];
+}
+
+const sortGames = {
 
   addedAtAscending: (data: []) => {
     return data
@@ -74,9 +80,7 @@ export const sortGames = {
   }
 }
 
-
-
-const sortArray = [
+export const sortArray: Array<sortArray> = [
 
   { id: 1, option: 'Added at ascending', fn: sortGames.addedAtAscending },
   { id: 2, option: 'Added at descending', fn: sortGames.addedAtDescending },
