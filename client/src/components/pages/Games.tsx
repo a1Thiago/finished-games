@@ -18,17 +18,20 @@ export default function Games() {
 
     let data = games.data
 
-    return sortGames.addedAtAscending(data)
-    // return sortGames.addedAtDescending(data)
 
-    // return sortGames.alphabeticalAscending(data)
-    // return sortGames.alphabeticalDescending(data)
+    return data
 
-    // return sortGames.hoursAscending(data)
-    // return sortGames.hoursDescending(data)
+    sortGames.addedAtAscending(data)
+    sortGames.addedAtDescending(data)
 
-    // return sortGames.dateOfFinishAscending(data)
-    // return sortGames.dateOfFinishDescending(data)
+    sortGames.alphabeticalAscending(data)
+    sortGames.alphabeticalDescending(data)
+
+    sortGames.hoursAscending(data)
+    sortGames.hoursDescending(data)
+
+    sortGames.dateOfFinishAscending(data)
+    sortGames.dateOfFinishDescending(data)
 
   })
 
@@ -61,7 +64,8 @@ export default function Games() {
       <div className="flex bg-blue-200 p-4 my-4 justify-between ">
         <Button label="Add Game" style="primary" onClick={() => navigate('/games/add')} />
         <div className="h-10 grid justify-center">
-          <Listbox />
+          {/* <Listbox options={[]} /> */}
+          <Listbox options={[]} />
         </div>
       </div>
 
