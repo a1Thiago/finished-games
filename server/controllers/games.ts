@@ -87,7 +87,7 @@ export function addGame(req: Request, res: Response) {
       if (err) {
         return res.status(404).json(err).end()
       } else {
-        return res.status(200).json('Game created').end()
+        return res.status(200).json({ insertId: data.insertId, message: 'Game created' }).end()
       }
     })
 
@@ -114,7 +114,8 @@ export function editGame(req: Request, res: Response) {
     if (err) {
       return res.status(404).json(err).end()
     } else {
-      return res.status(200).json('edit').end()
+      console.log(data)
+      return res.status(200).json({ message: 'Game edited' }).end()
     }
   })
 }
@@ -135,7 +136,8 @@ export function deleteGame(req: Request, res: Response) {
       if (err) {
         return res.status(404).json(err).end()
       } else {
-        return res.status(200).json('DELETe').end()
+        console.log(data)
+        return res.status(200).json({ message: 'Game deleted' }).end()
       }
     })
   })
