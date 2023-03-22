@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { makeRequest } from "@utils/axios"
 import GamesNav from "@components/GamesNav"
 import GamesGrid from "@components/GamesGrid"
@@ -19,8 +19,6 @@ export default function Games() {
   })
 
   let sortedGames: Array<object> = data ? selectedOption?.fn(data) : []
-
-  console.log(sortedGames)
 
   return (
 

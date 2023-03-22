@@ -36,7 +36,7 @@ export default function GameCard({ game, handleDelete, handleEdit }: GameCardPro
         <div className="flex flex-col gap-2">
           <Text size="sm" className="font-medium">Date of finish</Text>
           <Text size="xs">
-            {dateOfFinish?.substring(0, 10)}
+            {dateOfFinish === 'string' && dateOfFinish?.substring(0, 10)}
           </Text>
         </div>
       </div>

@@ -50,13 +50,12 @@ module.exports = {
     },
 
     boxShadow: {
-      custom: '2px 2px 4px 4px #A5B0D080'
+      custom: '1px 1px 5px 1px #A5B0D080'
     },
 
     extend: {
       fontFamily: {
         sans: 'Inter, sans-serif'
-
       }
     },
   },

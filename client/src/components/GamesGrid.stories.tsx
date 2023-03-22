@@ -84,7 +84,8 @@ const Template: ComponentStory<typeof GamesGrid> = (args) =>
 
 export const Default = Template.bind({});
 Default.args = {
-  // sortedGames: sortedGames
+  isLoading: false,
+  error: false,
   sortedGames: sortedGames
 }
 

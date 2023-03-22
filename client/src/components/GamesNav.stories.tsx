@@ -13,8 +13,7 @@ export default {
 
 const Template: ComponentStory<typeof GamesNav> = (args) =>
   <BrowserRouter>
-    {/*@ts-ignore */}
-    <GamesNav selectedOption={() => { }}  {...args} />
+    <GamesNav selectedOption={() => { }} />
   </BrowserRouter>
 
 export const Default = Template.bind({});
