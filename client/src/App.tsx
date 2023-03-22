@@ -29,10 +29,11 @@ export function App() {
   function Layout() {
 
     const globalPx = 'xsmobile:px-4 tablet:px-6 md:px-8'
+    // const globalPx = ''
 
     return (
 
-      <div className='min-h-screen flex flex-col '>
+      <div className='min-h-screen flex flex-col'>
         <Header className={globalPx} />
         <div className='bg-blue-700 flex-1'>
           <div className={`max-w-7xl m-auto ${globalPx}`}>

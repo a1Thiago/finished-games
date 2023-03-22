@@ -26,8 +26,8 @@ export default function Header({ className }: HeaderProps) {
   }
 
   return (
-    <header className={`w-full bg-blue-100 h-24 ${className}`}>
-      <div className="max-w-7xl m-auto grid grid-cols-2 items-center gap-6 h-full">
+    <header className={`w-full bg-blue-100 h-24`}>
+      <div className={`max-w-7xl m-auto grid grid-cols-2 items-center gap-6 h-full  ${className}`} >
         <div className="flex gap-6">
           <Heading size="lg"><h2
             className="cursor-pointer hover:opacity-90 "
