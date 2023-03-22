@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import LoginSection from './LoginSection';
 import { BrowserRouter } from 'react-router-dom';
