@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { sortArray } from '@utils/sortGames';
 
 import ListBox from './ListBox';
 
@@ -11,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof ListBox>;
 
-const Template: ComponentStory<typeof ListBox> = (args) => <div className='w-full grid items-center justify-center bg-black-100'> <ListBox
+const Template: ComponentStory<typeof ListBox> = (args) => <div className='w-full grid items-center justify-center bg-black-100'> <ListBox selectedOption={() => { }} optionsArray={sortArray}
 // {...args} 
 /></div>
 

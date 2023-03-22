@@ -21,7 +21,7 @@ export default function ListBox({ optionsArray, selectedOption }: ListBoxProps) 
   }, [])
 
   return (
-    <Listbox value={selected} onChange={setSelected} >
+    <Listbox value={selected} onChange={(e) => { setSelected(e); selectedOption(e) }} >
       <Listbox.Button className="inline-flex justify-center px-4 py-2 rounded-t font-semibold 
       bg-white text-blue-700  ring-1 ring-inset ring-blue-700 hover:opacity-90">
         {selected?.option}
@@ -37,10 +37,6 @@ export default function ListBox({ optionsArray, selectedOption }: ListBoxProps) 
         <Listbox.Options className="grid gap-2 px-4 justify-center py-2 font-semibold rounded-b bg-blue-500">
           {optionsArray?.map((option: any) => (
             <Listbox.Option
-
-
-              onClick={() => selectedOption(selected)}
-
               key={option?.id}
               value={option}
               className="cursor-pointer grid justify-center py-1

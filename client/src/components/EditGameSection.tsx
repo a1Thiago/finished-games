@@ -24,9 +24,10 @@ export default function AddGameSection() {
   const mutation = useMutation(async (editGame) => {
     return await makeRequest.put(`/api/games/edit/${id}`, editGame)
   }, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['games'])
-      queryClient.resetQueries(['games', parseInt(id!)])
+    onSuccess: async (game) => {
+      let gameObj = await JSON.parse(game.config.data)
+      queryClient.setQueryData(['games', parseInt(id!)], gameObj)
+      queryClient.invalidateQueries(['games'], { exact: true })
     },
   })
 
@@ -55,7 +56,6 @@ export default function AddGameSection() {
     try {
 
       mutation.mutate(inputs as any)
-      // await makeRequest.put(`/api/games/edit/${id}`, inputs)
       navigate('/games')
 
     } catch (error: any) {

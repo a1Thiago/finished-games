@@ -3,7 +3,7 @@ import Heading from "@ui/Heading/Heading";
 import Text from "@ui/Text/Text";
 import Button from "@ui/Button/Button";
 import InputLabel from "@ui/InputLabel/InputLabel";
-import { useNavigate } from "react-router";
+import { json, useNavigate } from "react-router";
 import { makeRequest } from "@utils/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -24,8 +24,10 @@ export default function AddGameSection() {
   const mutation = useMutation(async (addGame) => {
     return await makeRequest.post(`/api/games/add`, addGame)
   }, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['games'])
+    onSuccess: (game: any) => {
+      let gameObj = JSON.parse(game.config.data)
+      queryClient.setQueryData(['games', game.data.insertId], gameObj)
+      queryClient.invalidateQueries(['games'], { exact: true })
     },
   })
 
@@ -46,7 +48,6 @@ export default function AddGameSection() {
 
     try {
       mutation.mutate(inputs as any)
-      // await makeRequest.post(`/api/games/add`, inputs)
       navigate('/games')
 
     } catch (error: any) {

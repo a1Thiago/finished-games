@@ -4,9 +4,12 @@ type sortArray = {
   fn: (data: []) => [];
 }
 
-const sortGames = {
+export const sortGames = {
 
   addedAtAscending: (data: []) => {
+
+    data = data.sort((a: any, b: any) => parseFloat(a.id) - parseFloat(b.id))//addedAtAscending
+
     return data
   },
 
