@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Footer from './Footer';
+import { BrowserRouter } from 'react-router-dom';
 
 export default {
   title: 'components/Footer',
@@ -8,7 +9,10 @@ export default {
   },
 } as ComponentMeta<typeof Footer>;
 
-const Template: ComponentStory<typeof Footer> = (args) => <Footer />;
+const Template: ComponentStory<typeof Footer> = (args) =>
+  <BrowserRouter>
+    <Footer />
+  </BrowserRouter>
 
 // const Template: ComponentStory<typeof Footer> = (args) => <Footer {...args} />;
 

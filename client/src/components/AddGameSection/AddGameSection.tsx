@@ -1,11 +1,11 @@
-import { useRef, useState } from "react"
-import { Heading } from "@ui/Heading"
-import { Text } from "@ui/Text"
-import { Button } from "@ui/Button";
-import { InputLabel } from "@ui/InputLabel"
-import {  useNavigate } from "react-router";
-import { makeRequest } from "@utils/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Button } from "@ui/Button";
+import { Heading } from "@ui/Heading";
+import { InputLabel } from "@ui/InputLabel";
+import { Text } from "@ui/Text";
+import { makeRequest } from "@utils/axios";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 
 export default function AddGameSection() {

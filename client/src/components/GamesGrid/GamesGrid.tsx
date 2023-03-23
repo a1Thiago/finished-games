@@ -33,7 +33,8 @@ export default function GamesGrid({ error, isLoading, sortedGames }: GamesNavPro
   }
 
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="justify-center place-items-center my-8
+    grid gap-8 grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))]">
       {error ? 'error'
         : isLoading ? 'loading'
           : sortedGames?.map((game: any) => {

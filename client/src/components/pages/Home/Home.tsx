@@ -1,9 +1,9 @@
+import { HomeImages } from "@components/HomeImages";
 import { AuthContext } from "@contexts/AuthContext";
+import { Heading } from "@ui/Heading";
+import { Text } from "@ui/Text";
+import { TextLink } from "@ui/TextLink";
 import { useContext } from "react";
-import { Text } from "@ui/Text"
-import { TextLink } from "@ui/TextLink"
-import { Heading } from "@ui/Heading"
-import { HomeImages } from "@components/HomeImages"
 
 
 export default function Home() {

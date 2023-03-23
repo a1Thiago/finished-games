@@ -1,6 +1,6 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import RegisterSection from './RegisterSection';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
+import RegisterSection from './RegisterSection';
 
 export default {
   title: 'components/RegisterSection',
