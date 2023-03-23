@@ -1,16 +1,16 @@
 import './App.css'
-import { Navigate, Outlet, createBrowserRouter } from "react-router-dom"
-import Games from "@components/pages/Games"
-import AddGame from "./components/pages/AddGame"
-import EditGame from "./components/pages/EditGame"
-import Home from "@components/pages/Home"
-import Login from "./components/pages/Login"
-import Register from "./components/pages/Register"
 import { RouterProvider } from "react-router-dom"
+import { Navigate, Outlet, createBrowserRouter } from "react-router-dom"
 import { useContext } from "react"
 import { AuthContext } from "./contexts/AuthContext"
-import Header from "./components/Header"
-import Footer from '@components/Footer'
+import { Games } from "@pages/Games"
+import { AddGame } from "@pages/AddGame"
+import { EditGame } from "@pages/EditGame"
+import { Home } from "@pages/Home"
+import { Login } from "@pages/Login"
+import { Register } from "@pages/Register"
+import { Header } from "@components/Header"
+import { Footer } from '@components/Footer'
 
 export function App() {
 

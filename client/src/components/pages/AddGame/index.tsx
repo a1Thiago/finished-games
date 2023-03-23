@@ -1,0 +1,1 @@
+export { default as AddGame } from "./AddGame"

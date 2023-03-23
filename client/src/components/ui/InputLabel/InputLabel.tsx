@@ -1,4 +1,4 @@
-import Text from "../Text/Text"
+import { Text } from "@ui/Text"
 import { Envelope, Lock, IdentificationBadge } from "@phosphor-icons/react";
 
 type InputProps = {
