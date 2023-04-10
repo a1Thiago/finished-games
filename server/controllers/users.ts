@@ -3,11 +3,13 @@ import { db } from "../connectDB"
 
 const querySelectUserID = "SELECT * FROM users WHERE id = ?"
 
-export function userProfile(req: Request, res: Response) {
+export async function userProfile(req: Request, res: Response) {
+
+  const connection = await db as any
 
   const { userId } = req?.params
 
-  db.query(querySelectUserID, userId, (error: any, data: any) => {
+  connection.query(querySelectUserID, userId, (error: any, data: any) => {
 
     delete data[0].id
     delete data[0].password

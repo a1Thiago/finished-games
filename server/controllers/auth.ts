@@ -12,7 +12,9 @@ interface ErrorMsg {
   invalidEmail?: string;
 }
 
-export function register(req: Request, res: Response) {
+export async function register(req: Request, res: Response) {
+
+  const connection = await db as any
 
   const errorMsg: ErrorMsg = {}
 
@@ -30,12 +32,12 @@ export function register(req: Request, res: Response) {
 
   if (Object.entries(errorMsg).length >= 1) return res.status(509).json(errorMsg)
 
-  db.query(querySelectEmail, [email], (err: any, data: any) => {
+  connection.query(querySelectEmail, [email], (err: any, data: any) => {
 
     if (err) return res.status(500).json(err)
     if (data?.length) return res.status(509).json({ unavailableEmail: 'This email is already registered!' })
 
-    db.query(querySelectUsername, [username], (err: any, data: any) => {
+    connection.query(querySelectUsername, [username], (err: any, data: any) => {
 
       if (err) return res.status(500).json(err)
       if (data?.length) return res.status(509).json({ unavailableUserName: 'This username is not available!' })
@@ -48,7 +50,7 @@ export function register(req: Request, res: Response) {
 
       const values = [username, email, hashedPassWord]
 
-      db.query(queryInsertUser, [values], (err: any, data: any) => {
+      connection.query(queryInsertUser, [values], (err: any, data: any) => {
 
         if (err) return res.status(500).json(err)
 
@@ -59,7 +61,9 @@ export function register(req: Request, res: Response) {
 }
 
 
-export function login(req: Request, res: Response) {
+export async function login(req: Request, res: Response) {
+
+  const connection = await db as any
 
   if (Object.entries(req.body).length !== 2) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
@@ -67,7 +71,7 @@ export function login(req: Request, res: Response) {
 
   if (!username || !req.body.password) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
-  db.query(querySelectUsername, [username], (err: any, data: any) => {
+  connection.query(querySelectUsername, [username], (err: any, data: any) => {
 
     if (err) return res.status(500).json(err)
     if (data?.length === 0) return res.status(404).json({ invalidCredentials: "Wrong password or username!" })
