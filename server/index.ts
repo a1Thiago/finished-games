@@ -12,7 +12,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Credentials', true as any)
   next()
 })
