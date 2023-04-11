@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
+  "private": true,
   "scripts": {
     "storybook": "npm --prefix client run storybook",
-    "serverStart": "npm --prefix server run dev",
-    "clientDev": "npm --prefix client run dev",
+    "serverStart": "npm --prefix server run start",
     "clientBuild": "npm --prefix client run build",
     "clientStart": "npm --prefix client run start",
-    "build": "concurrently \"npm install\" \"npm --prefix server install\" \"npm --prefix client install\" \"npm run clientBuild\"",
-    "start": "concurrently \"npm run serverStart\" \"npm run clientStart\""
+    "installDependencies": "npm install && npm --prefix server install && npm --prefix client install",
+    "build": "npm run clientBuild && concurrently \"npm run serverStart\" \"npm run clientStart\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   },
   "homepage": "https://github.com/a1Thiago/finished-games#readme",
   "devDependencies": {
-    "concurrently": "^8.0.1"
+    "concurrently": "^8.0.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
   }
 }
