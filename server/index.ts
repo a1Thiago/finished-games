@@ -26,6 +26,10 @@ app.use(cors(
 
 app.use(cookieParser())
 
+app.get('/', (_req: Request, res: Response) => {
+  return res.status(200).json({ ready: "✅" }).end()
+})
+
 app.use('/api/auth', authRoutes)
 app.use('/api/users', usersRoutes)
 app.use('/api/games', gamesRoutes)
