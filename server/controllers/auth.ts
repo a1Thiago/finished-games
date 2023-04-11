@@ -1,7 +1,9 @@
 import { Request, Response } from "express"
-import { db } from "../connectDB"
+import { db } from "../connectDB.js"
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+
+const connection = await db as any
 
 const querySelectEmail = "SELECT * FROM users WHERE email = ?"
 const querySelectUsername = "SELECT * FROM users WHERE username = ?"
@@ -13,8 +15,6 @@ interface ErrorMsg {
 }
 
 export async function register(req: Request, res: Response) {
-
-  const connection = await db as any
 
   const errorMsg: ErrorMsg = {}
 
@@ -62,8 +62,6 @@ export async function register(req: Request, res: Response) {
 
 
 export async function login(req: Request, res: Response) {
-
-  const connection = await db as any
 
   if (Object.entries(req.body).length !== 2) return res.status(509).json({ requiredFields: 'All fields are required!' })
 

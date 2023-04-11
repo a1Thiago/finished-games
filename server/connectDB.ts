@@ -1,6 +1,7 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv';
 import { Client } from 'ssh2';
+import { readFileSync } from 'fs';
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ const tunnelConfig = {
   host: process.env.DB_SSH_HOST,
   port: 22,
   username: process.env.DB_SSH_USER,
-  privateKey: require('fs').readFileSync('docker-vm-key')
+  privateKey: readFileSync('docker-vm-key')
 }
 
 const forwardConfig = {

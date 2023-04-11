@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
-import { db } from "../connectDB"
+import { db } from "../connectDB.js"
 import jwt from 'jsonwebtoken'
+
+const connection = await db as any
 
 const querySelectUserID: string = "SELECT * FROM games WHERE userid = ?"
 const querySelectGameID: string = "SELECT * FROM games WHERE id = ? AND userid = ?"
@@ -14,8 +16,6 @@ const queryDeleteGame: string = `DELETE FROM games WHERE id = ? AND userid = ?;`
 export async function allGames(req: Request, res: Response) {
 
   const token = req.cookies.accessToken
-
-  const connection = await db as any
 
   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
 
@@ -37,8 +37,6 @@ export async function allGames(req: Request, res: Response) {
 export async function singleGame(req: Request, res: Response) {
 
   const { gameId } = req?.params
-
-  const connection = await db as any
 
   const token = req.cookies.accessToken
 
@@ -64,8 +62,6 @@ export async function singleGame(req: Request, res: Response) {
 export async function addGame(req: Request, res: Response) {
 
   const { body } = req
-
-  const connection = await db as any
 
   const token = req.cookies.accessToken
 
@@ -99,8 +95,6 @@ export async function addGame(req: Request, res: Response) {
 }
 
 export async function editGame(req: Request, res: Response) {
-
-  const connection = await db as any
 
   const token = req.cookies.accessToken
 
@@ -142,8 +136,6 @@ export async function editGame(req: Request, res: Response) {
 }
 
 export async function deleteGame(req: Request, res: Response) {
-
-  const connection = await db as any
 
   const { gameId } = req.params
 

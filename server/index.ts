@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import usersRoutes from './routes/users'
-import gamesRoutes from './routes/games'
-import authRoutes from './routes/auth'
+import usersRoutes from './routes/users.js'
+import gamesRoutes from './routes/games.js'
+import authRoutes from './routes/auth.js'
 
 dotenv.config();
 

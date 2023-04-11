@@ -1,11 +1,12 @@
 import { Request, Response } from "express"
-import { db } from "../connectDB"
+import { db } from "../connectDB.js"
+
+const connection = await db as any
 
 const querySelectUserID = "SELECT * FROM users WHERE id = ?"
 
 export async function userProfile(req: Request, res: Response) {
 
-  const connection = await db as any
 
   const { userId } = req?.params
 
