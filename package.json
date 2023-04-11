@@ -7,11 +7,12 @@
   "private": true,
   "scripts": {
     "storybook": "npm --prefix client run storybook",
+    "serverBuild": "npm --prefix server run build",
     "serverStart": "npm --prefix server run start",
     "clientBuild": "npm --prefix client run build",
     "clientStart": "npm --prefix client run start",
     "installDependencies": "npm install && npm --prefix server install && npm --prefix client install",
-    "build": "npm run clientBuild && concurrently \"npm run serverStart\" \"npm run clientStart\""
+    "build": "npm run serverBuild && npm run clientBuild && concurrently \"npm run serverStart\" \"npm run clientStart\""
   },
   "repository": {
     "type": "git",
