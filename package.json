@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/a1Thiago/finished-games/issues"
   },
-  "homepage": "https://github.com/a1Thiago/finished-games#readme"
+  "homepage": "https://github.com/a1Thiago/finished-games#readme",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
 }
