@@ -19,7 +19,7 @@ const tunnelConfig = {
   host: process.env.DB_SSH_HOST,
   port: 22,
   username: process.env.DB_SSH_USER,
-  privateKey: readFileSync('docker-vm-key')
+  privateKey: readFileSync('./docker-vm-key')
 }
 
 const forwardConfig = {
