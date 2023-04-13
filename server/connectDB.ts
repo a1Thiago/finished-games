@@ -1,38 +1,29 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv';
 import { Client } from 'ssh2';
-import fs from 'fs';
-import path from 'path';
 
 dotenv.config();
 
 const sshClient = new Client();
 
-const sshKey = path.join(process.cwd(), 'docker-vm-key')
-
 const dbServer = {
-  host: process.env.DB_HOST as string,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  port: 3307,
-  database: 'finishedgamesdata'
+  database: process.env.DB_DATABASE
 }
 
-
-
 const tunnelConfig = {
-  host: process.env.DB_SSH_HOST,
-  port: 22,
-  username: process.env.DB_SSH_USER,
-  // privateKey: fs.readFileSync(sshKey, 'utf-8')
+  host: process.env.SSH_HOST,
+  port: process.env.SSH_PORT,
+  username: process.env.SSH_USER,
   privateKey: process.env.SSH_KEY
 }
 
-console.log(tunnelConfig.privateKey)
-
 const forwardConfig = {
-  srcHost: '127.0.0.1',
-  srcPort: 3307,
+  srcHost: dbServer.host,
+  srcPort: dbServer.port,
   dstHost: dbServer.host,
   dstPort: dbServer.port
 };
@@ -41,17 +32,17 @@ export const db = new Promise((resolve, reject) => {
 
   sshClient.on('ready', () => {
     sshClient.forwardOut(
-      forwardConfig.srcHost,
-      forwardConfig.srcPort,
-      forwardConfig.dstHost,
-      forwardConfig.dstPort,
+      forwardConfig.srcHost as string,
+      forwardConfig.srcPort as any,
+      forwardConfig.dstHost as string,
+      forwardConfig.dstPort as any,
       (err: any, stream: any) => {
         if (err) reject(err);
         const updatedDbServer = {
           ...dbServer,
           stream
         };
-        const connection = mysql.createConnection(updatedDbServer)
+        const connection = mysql.createConnection(updatedDbServer as any)
 
         connection.connect((error) => {
           if (error) {
@@ -60,7 +51,7 @@ export const db = new Promise((resolve, reject) => {
           resolve(connection);
         });
       });
-  }).connect(tunnelConfig);
+  }).connect(tunnelConfig as any);
 });
 
 
