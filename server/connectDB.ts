@@ -1,7 +1,7 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv';
 import { Client } from 'ssh2';
-import fs, { lstat, lstatSync } from 'fs';
+import fs from 'fs';
 import path from 'path';
 
 dotenv.config();
@@ -18,14 +18,17 @@ const dbServer = {
   database: 'finishedgamesdata'
 }
 
+
+
 const tunnelConfig = {
   host: process.env.DB_SSH_HOST,
   port: 22,
   username: process.env.DB_SSH_USER,
-  privateKey: fs.readFileSync(sshKey, 'utf-8')
+  // privateKey: fs.readFileSync(sshKey, 'utf-8')
+  privateKey: process.env.SSH_KEY
 }
 
-// console.log(tunnelConfig.privateKey)
+console.log(tunnelConfig.privateKey)
 
 const forwardConfig = {
   srcHost: '127.0.0.1',
@@ -59,4 +62,5 @@ export const db = new Promise((resolve, reject) => {
       });
   }).connect(tunnelConfig);
 });
+
 
