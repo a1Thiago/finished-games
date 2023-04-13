@@ -15,6 +15,10 @@ const queryDeleteGame: string = `DELETE FROM games WHERE id = ? AND userid = ?;`
 
 export async function allGames(req: Request, res: Response) {
 
+  console.log(req.cookies.accessToken)
+  console.log(req.cookies)
+  console.log(req)
+
   const token = req.cookies.accessToken
 
   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
