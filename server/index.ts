@@ -28,7 +28,8 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 app.use(express.json())
 app.use(cors(
   {
-    origin: corsURLs
+    origin: corsURLs,
+    credentials: true,
   },
 ))
 

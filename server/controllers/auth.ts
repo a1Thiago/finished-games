@@ -63,6 +63,13 @@ export async function register(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
 
+  function AddDays(days: number) {
+    let today = new Date();
+    let resultDate = new Date(today);
+    resultDate.setDate(today.getDate() + days);
+    return resultDate;
+  }
+
   if (Object.entries(req.body).length !== 2) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
   const { username } = req?.body
@@ -85,7 +92,8 @@ export async function login(req: Request, res: Response) {
     return res.cookie('accessToken', token, {
       sameSite: "none",
       secure: true,
-      httpOnly: true
+      httpOnly: true,
+      expires: AddDays(30)
     }).status(200).json(others)
   })
 }

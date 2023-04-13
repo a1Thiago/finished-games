@@ -9,11 +9,7 @@ import { TextLink } from "@ui/TextLink";
 
 const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/register`
 
-// `${import.meta.env.VITE_PRODUCTION_BACK_URL}`
-
 export default function Register() {
-
-  console.log(url)
 
   const navigate = useNavigate()
 
