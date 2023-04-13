@@ -32,8 +32,6 @@ app.use(cors(
   },
 ))
 
-console.log(corsURLs)
-
 app.use(cookieParser())
 
 app.get('/', (_req: Request, res: Response) => {
