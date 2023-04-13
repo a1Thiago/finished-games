@@ -83,6 +83,7 @@ export async function login(req: Request, res: Response) {
     const { password, ...others } = data[0]
 
     return res.cookie('accessToken', token, {
+      secure: true,
       sameSite: "none",
       httpOnly: true
     }).status(200).json(others)
