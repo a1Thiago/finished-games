@@ -16,7 +16,7 @@ const queryDeleteGame: string = `DELETE FROM games WHERE id = ? AND userid = ?;`
 export async function allGames(req: Request, res: Response) {
 
   console.log(`req.cookies.accessToken: ${req.cookies.accessToken}`)
-  console.log(`req.cookies: ${req.cookies}`)
+  console.table(req.cookies)
 
   const token = req.cookies.accessToken
 
