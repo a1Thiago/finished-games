@@ -7,10 +7,13 @@ import { Button } from "@ui/Button"
 import { makeRequest } from "@utils/axios";
 import { TextLink } from "@ui/TextLink";
 
-const url = 'http://localhost:8000/api/auth/register'
+const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/register`
 
+// `${import.meta.env.VITE_PRODUCTION_BACK_URL}`
 
 export default function Register() {
+
+  console.log(url)
 
   const navigate = useNavigate()
 

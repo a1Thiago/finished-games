@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState, ReactNode } from 'react'
 import axios from 'axios'
 
-const url = 'http://localhost:8000/api/auth/login'
+const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/login`
 
 
 type AuthContextProps = {

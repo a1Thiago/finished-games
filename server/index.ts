@@ -17,10 +17,11 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
+
 app.use(express.json())
 app.use(cors(
   {
-    origin: ['http://localhost:5173', 'http://localhost:4173', 'http://localhost:6006']
+    origin: [`${process.env.PRODUCTION_CLIENT_URL}`, 'http://localhost:5173', 'http://localhost:4173', 'http://localhost:6006']
   },
 ))
 
