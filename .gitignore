@@ -28,3 +28,4 @@ dist-ssr
 *.sw?
 test.json
 server/vercel copy.json
+test.js

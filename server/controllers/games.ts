@@ -18,6 +18,8 @@ export async function allGames(req: Request, res: Response) {
   console.log(`req.cookies.accessToken: ${req.cookies.accessToken}`)
   console.table(req.cookies)
 
+  console.log(req)
+
   const token = req.cookies.accessToken
 
   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
