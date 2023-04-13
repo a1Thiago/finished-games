@@ -12,6 +12,13 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
+const corsURLs = [
+  `${process.env.PRODUCTION_CLIENT_URL}`,
+  'http://localhost:5173',
+  'http://localhost:4173',
+  'http://localhost:6006'
+]
+
 app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Credentials', true as any)
   next()
@@ -21,9 +28,11 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 app.use(express.json())
 app.use(cors(
   {
-    origin: [`${process.env.PRODUCTION_CLIENT_URL}`, 'http://localhost:5173', 'http://localhost:4173', 'http://localhost:6006']
+    origin: corsURLs
   },
 ))
+
+console.log(corsURLs)
 
 app.use(cookieParser())
 
