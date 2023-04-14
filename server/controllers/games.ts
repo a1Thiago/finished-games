@@ -1,6 +1,7 @@
-import { Request, Response } from "express"
+import { Request, Response, NextFunction } from "express"
 import { db } from "../connectDB.js"
 import jwt from 'jsonwebtoken'
+import { RequestWithUserInfo } from "routes/games.js"
 
 const connection = await db as any
 
@@ -13,26 +14,63 @@ const queryEditGame: string = 'UPDATE games SET `title` = ?,`cover` = ?,`hours` 
 const queryDeleteGame: string = `DELETE FROM games WHERE id = ? AND userid = ?;`
 
 
-export async function allGames(req: Request, res: Response) {
+export async function allGames(req: RequestWithUserInfo, res: Response) {
 
-  const token = req.cookies.accessToken
+  const userId = req?.userInfo?.id
 
-  if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
-
-  jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
-
-    if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
-
-    connection.query(querySelectUserID, [userInfo.id], (error: any, data: any) => {
-
-      if (error) {
-        return res.status(404).json(error).end()
-      } else {
-        return res.status(200).json(data).end()
-      }
-    })
+  connection.query(querySelectUserID, [userId], (error: any, data: any) => {
+    if (error) {
+      return res.status(404).json(error).end()
+    } else {
+      return res.status(200).json(data).end()
+    }
   })
+
 }
+
+// export async function allGames(req: Request, res: Response) {
+
+//   // const token = req.cookies.accessToken
+
+//   const token = req?.headers?.['x-access-token'] as string
+
+//   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
+
+//   jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
+
+//     if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
+
+//     connection.query(querySelectUserID, [userInfo.id], (error: any, data: any) => {
+
+//       if (error) {
+//         return res.status(404).json(error).end()
+//       } else {
+//         return res.status(200).json(data).end()
+//       }
+//     })
+//   })
+// }
+
+// export async function allGames(req: Request, res: Response) {
+
+//   const token = req.cookies.accessToken
+
+//   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
+
+//   jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
+
+//     if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
+
+//     connection.query(querySelectUserID, [userInfo.id], (error: any, data: any) => {
+
+//       if (error) {
+//         return res.status(404).json(error).end()
+//       } else {
+//         return res.status(200).json(data).end()
+//       }
+//     })
+//   })
+// }
 
 export async function singleGame(req: Request, res: Response) {
 
