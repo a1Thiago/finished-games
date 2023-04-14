@@ -4,7 +4,6 @@ import { allGames, singleGame, addGame, editGame, deleteGame } from '../controll
 import { Request, Response, NextFunction } from "express"
 import jwt from 'jsonwebtoken'
 
-
 const router = express.Router()
 
 export interface IDecode {
@@ -18,14 +17,11 @@ export interface RequestWithUserInfo extends Request {
 
 function verifyJWT(req: RequestWithUserInfo, res: Response, next: NextFunction) {
 
-  console.log(req.headers['x-access-token'])
-
   const token = req.headers['x-access-token'] as string
 
   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
 
   jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
-
     if (error) {
       res.status(403).json({ invalidToken: 'Token is not valid' })
     } else {
@@ -36,9 +32,9 @@ function verifyJWT(req: RequestWithUserInfo, res: Response, next: NextFunction) 
 }
 
 router.get('/all', verifyJWT, allGames)
-router.get('/:gameId', singleGame)
-router.post('/add', addGame)
-router.put('/edit/:gameId', editGame)
-router.delete('/delete/:gameId', deleteGame)
+router.get('/:gameId', verifyJWT, singleGame)
+router.post('/add', verifyJWT, addGame)
+router.put('/edit/:gameId', verifyJWT, editGame)
+router.delete('/delete/:gameId', verifyJWT, deleteGame)
 
 export default router

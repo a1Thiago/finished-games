@@ -28,115 +28,52 @@ export async function allGames(req: RequestWithUserInfo, res: Response) {
 
 }
 
-// export async function allGames(req: Request, res: Response) {
-
-//   // const token = req.cookies.accessToken
-
-//   const token = req?.headers?.['x-access-token'] as string
-
-//   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
-
-//   jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
-
-//     if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
-
-//     connection.query(querySelectUserID, [userInfo.id], (error: any, data: any) => {
-
-//       if (error) {
-//         return res.status(404).json(error).end()
-//       } else {
-//         return res.status(200).json(data).end()
-//       }
-//     })
-//   })
-// }
-
-// export async function allGames(req: Request, res: Response) {
-
-//   const token = req.cookies.accessToken
-
-//   if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
-
-//   jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
-
-//     if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
-
-//     connection.query(querySelectUserID, [userInfo.id], (error: any, data: any) => {
-
-//       if (error) {
-//         return res.status(404).json(error).end()
-//       } else {
-//         return res.status(200).json(data).end()
-//       }
-//     })
-//   })
-// }
-
-export async function singleGame(req: Request, res: Response) {
+export async function singleGame(req: RequestWithUserInfo, res: Response) {
 
   const { gameId } = req?.params
 
-  const token = req.cookies.accessToken
+  const userId = req?.userInfo?.id
 
-  if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
-
-  jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
-
-    if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
-
-    connection.query(querySelectGameID, [gameId, userInfo.id], (error: any, data: any) => {
-
-      if (error) {
-        return res.status(404).json(error).end()
-      } else {
-        return res.status(200).json(data).end()
-      }
-    })
-
+  connection.query(querySelectGameID, [gameId, userId], (error: any, data: any) => {
+    if (error) {
+      return res.status(404).json(error).end()
+    } else {
+      return res.status(200).json(data).end()
+    }
   })
 
 }
 
-export async function addGame(req: Request, res: Response) {
+export async function addGame(req: RequestWithUserInfo, res: Response) {
 
   const { body } = req
 
-  const token = req.cookies.accessToken
+  const userId = req?.userInfo?.id
 
-  if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
+  const added = new Date()
 
-  jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
+  const values = [
+    body.title,
+    body.cover,
+    body.hours,
+    body.dateOfFinish,
+    added,
+    userId
+  ]
 
-    if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
-
-    const added = new Date()
-
-    const values = [
-      body.title,
-      body.cover,
-      body.hours,
-      body.dateOfFinish,
-      added,
-      userInfo.id
-    ]
-
-    connection.query(queryAddGame, [values], (err: any, data: any) => {
-
-      if (err) {
-        return res.status(404).json(err).end()
-      } else {
-        return res.status(200).json({ insertId: data.insertId, message: 'Game created' }).end()
-      }
-    })
-
+  connection.query(queryAddGame, [values], (err: any, data: any) => {
+    if (err) {
+      return res.status(404).json(err).end()
+    } else {
+      return res.status(200).json({ insertId: data.insertId, message: 'Game created' }).end()
+    }
   })
 }
 
-export async function editGame(req: Request, res: Response) {
 
-  const token = req.cookies.accessToken
+export async function editGame(req: RequestWithUserInfo, res: Response) {
 
-  if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
+  const userId = req?.userInfo?.id
 
   const { body } = req
 
@@ -152,57 +89,48 @@ export async function editGame(req: Request, res: Response) {
     lastModified
   ]
 
-  jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
+  connection.query(querySelectGame, [gameId], (err: any, data: any) => {
 
-    connection.query(querySelectGame, [gameId], (err: any, data: any) => {
+    if (!data?.[0]) return res.status(400).json({ Unauthorized: "Invalid request" }).end()
 
-      if (!data?.[0]) return res.status(400).json({ Unauthorized: "Invalid request" }).end()
-
-      if (data?.[0]?.userId === userInfo?.id) {
-        connection.query(queryEditGame, [...values, gameId, userInfo.id], (err: any, data: any) => {
-          if (err) {
-            return res.status(404).json(err).end()
-          } else {
-            return res.status(200).json({ message: 'Game edited' }).end()
-          }
-        })
-      } else {
-        return res.status(403).json({ Forbidden: "Invalid user" }).end()
-      }
-    })
+    if (data?.[0]?.userId === userId) {
+      connection.query(queryEditGame, [...values, gameId, userId], (err: any, data: any) => {
+        if (err) {
+          return res.status(404).json(err).end()
+        } else {
+          return res.status(200).json({ message: 'Game edited' }).end()
+        }
+      })
+    } else {
+      return res.status(403).json({ Forbidden: "Invalid user" }).end()
+    }
   })
 }
 
-export async function deleteGame(req: Request, res: Response) {
+export async function deleteGame(req: RequestWithUserInfo, res: Response) {
 
   const { gameId } = req.params
 
-  const token = req.cookies.accessToken
+  const userId = req?.userInfo?.id
 
-  if (!token) return res.status(401).json({ notLoggedIn: 'Not logged in!' })
+  connection.query(querySelectGame, [gameId], (err: any, data: any) => {
 
-  jwt.verify(token, 'secretKey', (error: any, userInfo: any) => {
+    if (!data?.[0]) return res.status(400).json({ Unauthorized: "Invalid request" }).end()
 
-    if (error) res.status(403).json({ invalidToken: 'Token is not valid' })
-
-    connection.query(querySelectGame, [gameId], (err: any, data: any) => {
-
-      if (!data?.[0]) return res.status(400).json({ Unauthorized: "Invalid request" }).end()
-
-      if (data?.[0]?.userId === userInfo?.id) {
-        connection.query(queryDeleteGame, [gameId, userInfo.id], (err: any, data: any) => {
-          if (err) {
-            return res.status(404).json(err).end()
-          } else {
-            return res.status(200).json({ deletedId: gameId, message: 'Game deleted' }).end()
-          }
-        })
-      } else {
-        return res.status(403).json({ Forbidden: "Invalid user" }).end()
-      }
-    })
+    if (data?.[0]?.userId === userId) {
+      connection.query(queryDeleteGame, [gameId, userId], (err: any, data: any) => {
+        if (err) {
+          return res.status(404).json(err).end()
+        } else {
+          return res.status(200).json({ deletedId: gameId, message: 'Game deleted' }).end()
+        }
+      })
+    } else {
+      return res.status(403).json({ Forbidden: "Invalid user" }).end()
+    }
   })
 }
+
 
 
 

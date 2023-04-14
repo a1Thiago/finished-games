@@ -7,7 +7,6 @@ const querySelectUserID = "SELECT * FROM users WHERE id = ?"
 
 export async function userProfile(req: Request, res: Response) {
 
-
   const { userId } = req?.params
 
   connection.query(querySelectUserID, userId, (error: any, data: any) => {
