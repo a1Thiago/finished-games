@@ -94,12 +94,15 @@ export async function login(req: Request, res: Response) {
       secure: true,
       httpOnly: true,
       expires: AddDays(30)
-    }).status(200).json(others)
+    }).status(200).json({ ...others, token })
   })
 }
 
 
 export function logout(req: Request, res: Response) {
+
+
+  //remove localStorage
 
   return res.clearCookie('accessToken', {
     secure: true,
