@@ -10,6 +10,8 @@ import { useNavigate, useParams } from "react-router";
 
 export default function AddGameSection() {
 
+  const { token } = JSON.parse(localStorage.getItem('user')!)
+
   const { id } = useParams();
 
   const navigate = useNavigate()
@@ -17,12 +19,16 @@ export default function AddGameSection() {
   const queryClient = useQueryClient()
 
   const { isLoading, error, data } = useQuery(['games', parseInt(id!)], async () => {
-    const game = await makeRequest.get(`/api/games/${id}`)
+    const game = await makeRequest.get(`/api/games/${id}`,
+      { headers: { 'x-access-token': token } }
+    )
     return game.data
   })
 
   const mutation = useMutation(async (editGame) => {
-    return await makeRequest.put(`/api/games/edit/${id}`, editGame)
+    return await makeRequest.put(`/api/games/edit/${id}`, editGame,
+      { headers: { 'x-access-token': token } }
+    )
   }, {
     onSuccess: async (game) => {
       let gameObj = await JSON.parse(game.config.data)

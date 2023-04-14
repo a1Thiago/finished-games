@@ -3,7 +3,6 @@ import axios from 'axios'
 
 const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/login`
 
-
 type AuthContextProps = {
   children: ReactNode
 }
@@ -42,14 +41,12 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
 
       setTimeout(() => {
         setCurrentUser(res.data)
-      }, 3000);
+      }, 2000);
 
     } catch (error: any) {
       setLoginError(error?.response?.data)
       throw new Error(error);
-
     }
-
   }
 
   useEffect(() => {

@@ -16,8 +16,6 @@ export function App() {
 
   const { currentUser } = useContext(AuthContext)
 
-
-
   function ProtectedUser({ children }: any | React.ReactNode | JSX.Element) {//edit
 
     if (!currentUser) {

@@ -11,12 +11,16 @@ type GamesNavProps = {
 
 export default function GamesGrid({ error, isLoading, sortedGames }: GamesNavProps) {
 
+  const { token } = JSON.parse(localStorage.getItem('user')!)
+
   const queryClient = useQueryClient()
 
   const navigate = useNavigate()
 
   const mutation = useMutation(async (id: number) => {
-    return await makeRequest.delete(`/api/games/delete/${id}`)
+    return await makeRequest.delete(`/api/games/delete/${id}`,
+      { headers: { 'x-access-token': token } }
+    )
   }, {
     onSuccess: (game) => {
       queryClient.invalidateQueries(['games'], { exact: true })
