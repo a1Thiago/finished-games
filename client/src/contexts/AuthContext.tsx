@@ -42,7 +42,7 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
 
       setTimeout(() => {
         setCurrentUser(res.data)
-      }, 3000);
+      }, 2000);
 
     } catch (error: any) {
       setLoginError(error?.response?.data)
