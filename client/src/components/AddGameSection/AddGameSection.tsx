@@ -10,6 +10,8 @@ import { useNavigate } from "react-router";
 
 export default function AddGameSection() {
 
+  const { token } = JSON.parse(localStorage.getItem('user')!)
+
   const navigate = useNavigate()
 
   const titleRef = useRef<HTMLInputElement>(null);
@@ -22,7 +24,8 @@ export default function AddGameSection() {
   const queryClient = useQueryClient()
 
   const mutation = useMutation(async (addGame) => {
-    return await makeRequest.post(`/api/games/add`, addGame)
+    return await makeRequest.post(`/api/games/add`, addGame,
+      { headers: { 'x-access-token': token } })
   }, {
     onSuccess: (game: any) => {
       let gameObj = JSON.parse(game.config.data)
