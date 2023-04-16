@@ -2,29 +2,30 @@ import { useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 
 type ListBoxProps = {
-
   optionsArray: Array<{
     id: number
     option: string
-    fn: (data: []) => []
+    fn?: (data: []) => []
+    onClick?: () => void
   }>,
-
-  selectedOption: React.Dispatch<React.SetStateAction<{}>>
+  className?: string,
+  selectedOption?: React.Dispatch<React.SetStateAction<{}>>,
+  menuIcon?: any
 }
 
-export default function ListBox({ optionsArray, selectedOption }: ListBoxProps) {
+export default function ListBox({ optionsArray, className, selectedOption, menuIcon }: ListBoxProps) {
 
   const [selected, setSelected] = useState(optionsArray[0])
 
   useEffect(() => {
-    selectedOption(selected)
+    selectedOption && selectedOption(selected)
   }, [])
 
   return (
-    <Listbox value={selected} onChange={(e) => { setSelected(e); selectedOption(e) }} >
-      <Listbox.Button className="inline-flex justify-center px-4 py-2 rounded-t font-semibold 
-      bg-white text-blue-700  ring-1 ring-inset ring-blue-700 hover:opacity-90">
-        {selected?.option}
+    <Listbox value={selected} onChange={(e) => { setSelected(e); selectedOption && selectedOption(e) }} >
+      <Listbox.Button className={`inline-flex justify-center px-4 py-2 rounded-t font-semibold 
+      text-blue-700  ring-1 ring-inset ring-blue-700 hover:opacity-90 `+ className}>
+        {menuIcon || selected?.option}
       </Listbox.Button>
       <Transition
         enter="transition duration-100 ease-out"
@@ -37,6 +38,7 @@ export default function ListBox({ optionsArray, selectedOption }: ListBoxProps) 
         <Listbox.Options className="grid gap-2 px-4 justify-center py-2 font-semibold rounded-b bg-blue-500">
           {optionsArray?.map((option: any) => (
             <Listbox.Option
+              onClick={option.onClick}
               key={option?.id}
               value={option}
               className="cursor-pointer grid justify-center py-1
@@ -49,14 +51,3 @@ export default function ListBox({ optionsArray, selectedOption }: ListBoxProps) 
     </Listbox>
   )
 }
-
-// const Child = ({ chooseMessage }) => {
-
-//   let msg = 'Goodbye';
-
-//   return (
-//     <div>
-//       <button onClick={() => chooseMessage(msg)}>Change    Message</button>
-//     </div>
-//   );
-// };
