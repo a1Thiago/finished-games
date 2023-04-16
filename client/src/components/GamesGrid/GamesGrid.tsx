@@ -11,7 +11,7 @@ type GamesNavProps = {
 
 export default function GamesGrid({ error, isLoading, sortedGames }: GamesNavProps) {
 
-  const { token } = JSON.parse(localStorage.getItem('user')!)
+  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
 
   const queryClient = useQueryClient()
 

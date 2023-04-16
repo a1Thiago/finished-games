@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router";
 
 export default function AddGameSection() {
 
-  const { token } = JSON.parse(localStorage.getItem('user')!)
+  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
 
   const { id } = useParams();
 

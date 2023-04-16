@@ -26,13 +26,17 @@ export default function Header({ className }: HeaderProps) {
     <header className={`w-full bg-blue-100 h-24`}>
       <div className={`max-w-7xl m-auto grid grid-cols-2 items-center gap-6 h-full ${className}`} >
         <div className="flex gap-6">
-          <Heading size="lg"><h2
-            className="cursor-pointer hover:opacity-90 "
-            onClick={() => navigate('/home')}>Home</h2>
+          <Heading size="lg">
+            <button onClick={() => navigate('/home')} className="px-1 py-0.5 cursor-pointer hover:opacity-90">
+              <h2>Home</h2>
+            </button>
           </Heading>
-          {currentUser && <Heading size="lg"><h2
-            className="cursor-pointer hover:opacity-90 "
-            onClick={() => navigate('/games')}>My Games</h2></Heading>}
+          {currentUser &&
+            <Heading size="lg">
+              <button onClick={() => navigate('/games')} className="px-1 py-0.5 cursor-pointer hover:opacity-90 ">
+                <h2>My Games</h2>
+              </button>
+            </Heading>}
         </div>
         <div className="flex gap-6 justify-end w-full">
           {currentUser && <Button label="Log Out" onClick={handleLogOut} style="warn" />}

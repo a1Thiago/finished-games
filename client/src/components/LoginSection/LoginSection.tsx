@@ -58,7 +58,7 @@ export default function LoginSection() {
             <Button label="Login" style="primary" />
           </div>
           <div className="text-center mt-4">
-            <TextLink className="mobile:text-xs" href="/register">Don't have an account? Sign up</TextLink>
+            <TextLink href="/register" className="mobile:text-xs">Don't have an account? Sign up</TextLink>
           </div>
         </div>
       </form>

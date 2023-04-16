@@ -1,5 +1,5 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 
 import TextLink from './TextLink';
 
@@ -11,7 +11,10 @@ export default {
   },
 } as ComponentMeta<typeof TextLink>;
 
-const Template: ComponentStory<typeof TextLink> = (args) => <TextLink {...args} />;
+const Template: ComponentStory<typeof TextLink> = (args) =>
+  <BrowserRouter>
+    <TextLink {...args} />
+  </BrowserRouter>
 
 export const XSmall = Template.bind({});
 XSmall.args = {

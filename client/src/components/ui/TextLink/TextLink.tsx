@@ -8,24 +8,24 @@ type TextProps = {
   className?: string
 }
 
-
-
 export default function TextLink({ children, href = '#', size = 'sm', className }: TextProps) {
 
   const navigate = useNavigate()
 
   return (
-    <a className={clsx('underline font-semibold cursor-pointer hover:opacity-90',
-      {
-        'text-xs': size === 'xs',
-        'text-sm': size === 'sm',
-        'text-md': size === 'md',
-      }, className
-    )
-    }
+    <a
       onClick={() => navigate(href)}
     >
-      {children}
+      <button className={clsx('underline font-semibold cursor-pointer hover:opacity-90 px-1 py-0.5 ',
+        {
+          'text-xs': size === 'xs',
+          'text-sm': size === 'sm',
+          'text-md': size === 'md',
+        }, className
+      )
+      }>
+        {children}
+      </button>
     </a>
   )
 }

@@ -7,7 +7,7 @@ import { GamesGrid } from "@components/GamesGrid"
 
 export default function Games() {
 
-  const { token } = JSON.parse(localStorage.getItem('user')!)
+  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
 
   const [selectedOption, setSelectedOption] = useState<any>(null)
 
