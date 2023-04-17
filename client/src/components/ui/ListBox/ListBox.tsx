@@ -35,7 +35,7 @@ export default function ListBox({ optionsArray, className, selectedOption, menuI
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Listbox.Options className="grid gap-2 px-4 justify-center py-2 font-semibold rounded-b bg-blue-500">
+        <Listbox.Options className="text-xs grid gap-2 px-4 justify-center py-2 font-semibold rounded-b bg-blue-500">
           {optionsArray?.map((option: any) => (
             <Listbox.Option
               onClick={option.onClick}
