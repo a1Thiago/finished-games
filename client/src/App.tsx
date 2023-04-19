@@ -79,7 +79,6 @@ export function App() {
     {
       path: '*', element: <Navigate to={'/'} />
     },
-
   ])
 
 
