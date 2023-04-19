@@ -5,6 +5,7 @@ import { Text } from "@ui/Text";
 import { Button } from "@ui/Button"
 import { InputLabel } from "@ui/InputLabel";
 import { TextLink } from "@ui/TextLink"
+import { ProgressBar } from "@components/ui/ProgressBar";
 
 export default function LoginSection() {
 
@@ -28,9 +29,10 @@ export default function LoginSection() {
 
     if (inputs.username === '' || inputs.password === '') return setCredentialsCheck('All fields are required!')
 
+    setCredentialsCheck('Loading...')
+
     try {
       await login(inputs)
-      setCredentialsCheck('Loading...')
     } catch (error) {
       setCredentialsCheck((loginError?.invalidCredentials ?? loginError?.requiredFields))
     }
@@ -43,8 +45,9 @@ export default function LoginSection() {
       <form onSubmit={handleClick}>
 
         <Heading ><h2 className="text-center">Log In</h2></Heading>
-
-        <Text className="text-redAlert-100">{credentialsCheck}</Text>
+        <div className="py-4">
+          {credentialsCheck === 'Loading...' ? <ProgressBar /> : <Text className="text-redAlert-100">{credentialsCheck}</Text>}
+        </div>
         <div className="grid gap-4">
           <div ref={usernameRef}>
             <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" required />

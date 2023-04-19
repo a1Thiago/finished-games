@@ -6,6 +6,7 @@ import { InputLabel } from "@ui/InputLabel"
 import { Button } from "@ui/Button"
 import { makeRequest } from "@utils/axios";
 import { TextLink } from "@ui/TextLink";
+import { ProgressBar } from "@components/ui/ProgressBar";
 
 const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/register`
 
@@ -44,20 +45,19 @@ export default function Register() {
 
     if (inputs.username === '' || inputs.password === '' || inputs.email === '') return setFilledAllFields('All fields are required!')
 
+    setUserCreated('Loading...')
+
     try {
-
       const res = await makeRequest.post(url, inputs)
-
       setUserCreated(res.data.success)
-
       setTimeout(() => {
         navigate('/login')
       }, 3000)
 
     } catch (error: any) {
 
+      setUserCreated('')
       const ObjError = error.response.data
-
       if (Object.keys(ObjError).includes('requiredFields')) setFilledAllFields(ObjError.requiredFields)
       setUserNameCheck(ObjError.invalidUserName ?? ObjError.unavailableUserName)
       if (Object.keys(ObjError).includes('invalidPassWord')) setPassWordCheck(ObjError.invalidPassWord)
@@ -75,7 +75,12 @@ export default function Register() {
         <Heading ><h2 className="text-center">Register</h2></Heading>
 
         <Text className="text-redAlert-100">{filledAllFields}</Text>
-        {userCreated && <Text size="md" className="text-blue-700">{userCreated} <TextLink size="md" className="text-blue-700" href="/login">Click to login</TextLink> </Text>}
+
+        <div className="py-4">
+          {userCreated === 'Loading...' ? <ProgressBar />
+            : userCreated && <Text size="md" className="text-blue-700">{userCreated} <TextLink size="md" className="text-blue-700" href="/login">Click to login</TextLink> </Text>}
+        </div>
+
         <div className="grid gap-4">
           <div ref={usernameRef}>
             <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" required />
