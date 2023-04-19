@@ -15,11 +15,11 @@ export default function ProgressBar(
   setTimeout(() => {
     while (progress < 99) {
       setTransition(transition => transition = 1000)
-      return setProgress(progress => progress + 50)
+      return setProgress(progress => progress + 25)
     }
     setTransition(transition => transition = 0)
     return setProgress(progress => progress = 0)
-  }, 1500)
+  }, 1000)
 
   return (
     <div className='h-1 w-full bg-blue-100 '>
