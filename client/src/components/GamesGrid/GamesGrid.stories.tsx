@@ -132,6 +132,7 @@ export default {
   title: 'components/GamesGrid',
   component: GamesGrid,
   argTypes: {
+    error: { control: 'boolean' },
   },
 } as ComponentMeta<typeof GamesGrid>;
 
@@ -144,17 +145,17 @@ const Template: ComponentStory<typeof GamesGrid> = (args) =>
 
 export const Default = Template.bind({});
 Default.args = {
+  sortedGames: sortedGames,
   isLoading: false,
-  error: false,
-  sortedGames: sortedGames
+  error: false
 }
 
 export const isLoading = Template.bind({});
 isLoading.args = {
-  isLoading: true
+  isLoading: true,
 }
 
 export const isError = Template.bind({});
 isError.args = {
-  error: true
+  error: true,
 }

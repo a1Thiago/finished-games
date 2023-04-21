@@ -1,3 +1,5 @@
+import { ErrorMessage } from "@components/ui/ErrorMessage";
+import { ProgressBar } from "@components/ui/ProgressBar";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@ui/Button";
 import { Heading } from "@ui/Heading";
@@ -8,7 +10,7 @@ import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
 
-export default function AddGameSection() {
+export default function EditGameSection() {
 
   const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
 
@@ -69,16 +71,16 @@ export default function AddGameSection() {
       throw new Error(error);
     }
   }
+  if (isLoading) return <ProgressBar darkMode />
 
-
-  // if (error) return <p>There is an error.</p>
-  // if (!data) return <p>Loading...</p>
+  if (error) return <ErrorMessage message="Error" />
 
   return (
 
     <div className="grid gap-4 bg-white shadow-custom py-8 px-4 max-w-md w-full">
 
       <form onSubmit={handleClick} className=" overflow-hidden whitespace-nowrap text-ellipsis">
+
         <Heading ><h2 className="text-center">Edit {data && data[0]?.title}</h2></Heading>
         <Text className="text-redAlert-100">{validForm}</Text>
         <div className="grid gap-4">
