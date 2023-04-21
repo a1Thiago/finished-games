@@ -71,7 +71,7 @@ export default function EditGameSection() {
       throw new Error(error);
     }
   }
-  if (isLoading) return <ProgressBar darkMode />
+  // if (isLoading) return <ProgressBar darkMode />
 
   if (error) return <ErrorMessage message="Error" />
 
@@ -80,6 +80,10 @@ export default function EditGameSection() {
     <div className="grid gap-4 bg-white shadow-custom py-8 px-4 max-w-md w-full">
 
       <form onSubmit={handleClick} className=" overflow-hidden whitespace-nowrap text-ellipsis">
+
+        <div className="mb-4">
+          {isLoading && <ProgressBar />}
+        </div>
 
         <Heading ><h2 className="text-center">Edit {data && data[0]?.title}</h2></Heading>
         <Text className="text-redAlert-100">{validForm}</Text>
