@@ -12,9 +12,18 @@ export default {
 
 const Template: ComponentStory<typeof ProgressBar> = (args) => <ProgressBar {...args} />;
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
 
-Primary.args = {
-  progressPercentage: 50
+Default.args = {
+  // progressPercentage: 50
+  darkMode: false
 }
+
+export const DarkMode = Template.bind({})
+
+DarkMode.args = {
+  // progressPercentage: 75,
+  darkMode: true,
+};
+
 
