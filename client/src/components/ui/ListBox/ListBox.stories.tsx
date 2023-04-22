@@ -12,7 +12,7 @@ export default {
   },
 } as ComponentMeta<typeof ListBox>;
 
-const Template: ComponentStory<typeof ListBox> = (args) => <div className='w-full grid items-center justify-center bg-black-100'> <ListBox selectedOption={() => { }} optionsArray={sortArray}
+const Template: ComponentStory<typeof ListBox> = (args) => <div className='w-full grid items-center justify-center bg-black-100'> <ListBox selectedOption={() => { }} optionsArray={sortArray as any}
 // {...args} 
 /></div>
 

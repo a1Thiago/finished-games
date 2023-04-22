@@ -7,6 +7,11 @@ import { InputLabel } from "@ui/InputLabel";
 import { TextLink } from "@ui/TextLink"
 import { ProgressBar } from "@components/ui/ProgressBar";
 
+type Inputs = {
+  username: string,
+  password: string,
+}
+
 export default function LoginSection() {
 
   const { login, loginError } = useContext(AuthContext)
@@ -16,15 +21,15 @@ export default function LoginSection() {
 
   const [credentialsCheck, setCredentialsCheck] = useState<string | undefined>(loginError?.invalidCredentials ?? loginError?.requiredFields)
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 
     e.preventDefault()
 
-    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[1]?.value //TODO
+    const fixRef = (ref: React.RefObject<HTMLInputElement>) => (ref?.current?.children[0].children[1].children[1] as HTMLInputElement)?.value
 
-    const inputs = {
-      username: fixRef(usernameRef) as string,
-      password: fixRef(passwordRef) as string,
+    const inputs: Inputs = {
+      username: fixRef(usernameRef),
+      password: fixRef(passwordRef)
     }
 
     if (inputs.username === '' || inputs.password === '') return setCredentialsCheck('All fields are required!')

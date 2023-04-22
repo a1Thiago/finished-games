@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { makeRequest } from "@utils/axios"
 import { GamesNav } from "@components/GamesNav"
 import { GamesGrid } from "@components/GamesGrid"
+import { Game } from "@components/GamesGrid/GamesGrid"
 
 
 export default function Games() {
@@ -22,7 +23,7 @@ export default function Games() {
     return data
   })
 
-  let sortedGames: Array<object> = data ? selectedOption?.fn(data) : []
+  let sortedGames: Game[] = data ? selectedOption?.fn(data) : []
 
   return (
 

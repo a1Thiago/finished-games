@@ -6,7 +6,7 @@ type Game = {
   dateOfFinish: string | null
 }
 
-type SortArray = {
+type SortType = {
   id: number
   option: string
   fn: (data: Game[]) => Game[]
@@ -74,7 +74,7 @@ export const sortGames = {
   },
 }
 
-export const sortArray: SortArray[] = [
+export const sortArray: SortType[] = [
   { id: 1, option: 'Added at ascending', fn: sortGames.addedAtAscending },
   { id: 2, option: 'Added at descending', fn: sortGames.addedAtDescending },
   { id: 3, option: 'Alphabetical ascending', fn: sortGames.alphabeticalAscending },

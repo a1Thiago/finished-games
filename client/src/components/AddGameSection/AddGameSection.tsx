@@ -6,7 +6,14 @@ import { Text } from "@ui/Text";
 import { makeRequest } from "@utils/axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import { AxiosResponse } from "axios";
 
+type Inputs = {
+  title: string;
+  cover: string | null
+  hours: number | null
+  dateOfFinish: string | null
+}
 
 export default function AddGameSection() {
 
@@ -23,34 +30,34 @@ export default function AddGameSection() {
 
   const queryClient = useQueryClient()
 
-  const mutation = useMutation(async (addGame) => {
+  const mutation = useMutation(async (addGame: Inputs) => {
     return await makeRequest.post(`/api/games/add`, addGame,
       { headers: { 'x-access-token': token } })
   }, {
-    onSuccess: (game: any) => {
+    onSuccess: (game: AxiosResponse<any, any>) => {
       let gameObj = JSON.parse(game.config.data)
       queryClient.setQueryData(['games', game.data.insertId], gameObj)
       queryClient.invalidateQueries(['games'], { exact: true })
     },
   })
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault()
 
-    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[0].value //TODO
+    const fixRef = (ref: React.RefObject<HTMLInputElement>) => (ref?.current?.children[0].children[1].children[0] as HTMLInputElement)?.value
 
-    const inputs = {
-      title: fixRef(titleRef) as string,
-      cover: fixRef(coverRef) as string,
-      hours: fixRef(hoursRef) === '' ? 0 : fixRef(hoursRef) as number,
-      dateOfFinish: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef) as string,
+    const inputs: Inputs = {
+      title: fixRef(titleRef),
+      cover: fixRef(coverRef),
+      hours: fixRef(hoursRef) === '' ? 0 : Number(fixRef(hoursRef)),
+      dateOfFinish: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef)
     }
 
     if (!inputs.title) return setValidForm('Title is required!')
 
     try {
-      mutation.mutate(inputs as any)
+      mutation.mutate(inputs)
       navigate('/games')
 
     } catch (error: any) {

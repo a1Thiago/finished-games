@@ -5,9 +5,9 @@ type GameCardProps = {
   game: {
     id: number,
     title: string,
-    cover?: string,
-    hours?: number,
-    dateOfFinish?: string,
+    cover?: string | null,
+    hours?: number | null,
+    dateOfFinish?: string | null,
   },
   handleEdit: () => void
   handleDelete: () => void
@@ -23,7 +23,7 @@ export default function GameCard({ game, handleDelete, handleEdit }: GameCardPro
 
       <div className="whitespace-nowrap text-ellipsis overflow-hidden w-[99%]" title={title}><Text size="md" ><h2 className="font-semibold ">{title}</h2></Text></div>
 
-      <div className="h-60 w-40 bg-black-60"><img className="bg-blue-300 text-white h-full w-full object-fill leading-[240px] text-2xl -indent-4" src={cover} title={title} alt={`${title.charAt(0)}`} /></div>
+      <div className="h-60 w-40 bg-black-60"><img className="bg-blue-300 text-white h-full w-full object-fill leading-[240px] text-2xl -indent-4" src={cover ?? ''} title={title} alt={`${title.charAt(0)}`} /></div>
 
       <div className="grid gap-4">
         <div className="flex flex-col gap-2">

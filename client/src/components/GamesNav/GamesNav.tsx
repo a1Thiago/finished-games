@@ -19,12 +19,12 @@ export default function GamesNav({ selectedOption }: GamesNavProps) {
 
       {/* +768px */}
       <div className="h-10 grid justify-end tablet:hidden">
-        <ListBox className="bg-white " optionsArray={sortArray} selectedOption={selectedOption} />
+        <ListBox className="bg-white " optionsArray={sortArray as any} selectedOption={selectedOption} />
       </div>
 
       {/* -768px */}
       <div className="h-10 grid justify-end md:hidden">
-        <ListBox className="bg-white justify-self-end w-16" optionsArray={sortArray} selectedOption={selectedOption}
+        <ListBox className="bg-white justify-self-end w-16" optionsArray={sortArray as any} selectedOption={selectedOption}
           menuIcon={<Funnel size={20} color="black" weight="fill" />}
         />
       </div>

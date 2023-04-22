@@ -1,14 +1,21 @@
 import { ErrorMessage } from "@components/ui/ErrorMessage";
 import { ProgressBar } from "@components/ui/ProgressBar";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@ui/Button";
+import { Button } from "@ui/Button"
 import { Heading } from "@ui/Heading";
-import { InputLabel } from "@ui/InputLabel";
-import { Text } from "@ui/Text";
-import { makeRequest } from "@utils/axios";
-import { useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { InputLabel } from "@ui/InputLabel"
+import { Text } from "@ui/Text"
+import { makeRequest } from "@utils/axios"
+import { useRef, useState } from "react"
+import { useNavigate, useParams } from "react-router"
+import { AxiosResponse } from "axios";
 
+type Inputs = {
+  title: string;
+  cover: string | null
+  hours: number | null
+  dateOfFinish: string | null
+}
 
 export default function EditGameSection() {
 
@@ -27,12 +34,12 @@ export default function EditGameSection() {
     return game.data
   })
 
-  const mutation = useMutation(async (editGame) => {
+  const mutation = useMutation(async (editGame: Inputs) => {
     return await makeRequest.put(`/api/games/edit/${id}`, editGame,
       { headers: { 'x-access-token': token } }
     )
   }, {
-    onSuccess: async (game) => {
+    onSuccess: async (game: AxiosResponse<any, any>) => {
       let gameObj = await JSON.parse(game.config.data)
       queryClient.setQueryData(['games', parseInt(id!)], gameObj)
       queryClient.invalidateQueries(['games'], { exact: true })
@@ -46,24 +53,24 @@ export default function EditGameSection() {
 
   const [validForm, setValidForm] = useState<string | undefined>('')
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault()
 
-    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[0].value //TODO
+    const fixRef = (ref: React.RefObject<HTMLInputElement>) => (ref?.current?.children[0].children[1].children[0] as HTMLInputElement)?.value
 
-    const inputs = {
-      title: fixRef(titleRef) as string,
-      cover: fixRef(coverRef) as string,
-      hours: fixRef(hoursRef) === '' ? 0 : fixRef(hoursRef) as number,
-      dateOfFinish: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef) as string,
+    const inputs: Inputs = {
+      title: fixRef(titleRef),
+      cover: fixRef(coverRef),
+      hours: fixRef(hoursRef) === '' ? 0 : Number(fixRef(hoursRef)),
+      dateOfFinish: fixRef(dateOfFinishRef) === '' ? null : fixRef(dateOfFinishRef)
     }
 
     if (!inputs.title) return setValidForm('Title is required!')
 
     try {
 
-      mutation.mutate(inputs as any)
+      mutation.mutate(inputs)
       navigate('/games')
 
     } catch (error: any) {

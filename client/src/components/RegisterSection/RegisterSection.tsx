@@ -10,6 +10,12 @@ import { ProgressBar } from "@components/ui/ProgressBar";
 
 const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/register`
 
+type Inputs = {
+  username: string;
+  password: string;
+  email: string;
+}
+
 export default function Register() {
 
   const navigate = useNavigate()
@@ -25,7 +31,7 @@ export default function Register() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault()
 
@@ -35,12 +41,12 @@ export default function Register() {
     setEmailCheck('')
     setPassWordCheck('')
 
-    const fixRef = (ref: any) => ref?.current?.children[0].children[1].children[1]?.value //TODO
+    const fixRef = (ref: React.RefObject<HTMLInputElement>) => (ref?.current?.children[0].children[1].children[1] as HTMLInputElement)?.value
 
-    const inputs = {
-      username: fixRef(usernameRef) as string,
-      password: fixRef(passwordRef) as string,
-      email: fixRef(emailRef) as string,
+    const inputs: Inputs = {
+      username: fixRef(usernameRef),
+      password: fixRef(passwordRef),
+      email: fixRef(emailRef),
     }
 
     if (inputs.username === '' || inputs.password === '' || inputs.email === '') return setFilledAllFields('All fields are required!')
