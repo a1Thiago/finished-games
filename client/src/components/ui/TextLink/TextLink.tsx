@@ -6,16 +6,25 @@ type TextProps = {
   children: React.ReactNode
   href: string
   className?: string
+  externalLink?: boolean
 }
 
-export default function TextLink({ children, href = '#', size = 'sm', className }: TextProps) {
+export default function TextLink({ children, href = '#', size = 'sm', className, externalLink }: TextProps) {
 
   const navigate = useNavigate()
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+
+    if (externalLink) return
+
+    e.preventDefault();
+    navigate(href)
+
+  }
+
   return (
-    <a
-      onClick={() => navigate(href)}
-    >
+    <a href={href} target={externalLink ? '_blank' : '_self'} onClick={handleClick} >
+
       <button className={clsx('underline font-semibold cursor-pointer hover:opacity-90 px-1 py-0.5 ',
         {
           'text-xs': size === 'xs',
