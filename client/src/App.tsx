@@ -16,12 +16,12 @@ export function App() {
 
   const { currentUser } = useContext(AuthContext)
 
-  function ProtectedUser({ children }: any | React.ReactNode | JSX.Element) {//edit
+  function ProtectedUser({ children }: { children: React.ReactNode | Element }) {//edit
 
     if (!currentUser) {
       return <Navigate to='/login' />
     }
-    return children
+    return <>{children}</> || null
   }
 
   function Layout() {

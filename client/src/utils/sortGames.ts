@@ -1,90 +1,80 @@
-type sortArray = {
-  id: number;
-  option: string;
-  fn: (data: []) => [];
+type Game = {
+  id: number
+  title: string
+  cover: string
+  hours: number
+  dateOfFinish: string | null
+}
+
+type SortArray = {
+  id: number
+  option: string
+  fn: (data: Game[]) => Game[]
 }
 
 export const sortGames = {
-
-  addedAtAscending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => parseFloat(a.id) - parseFloat(b.id))//addedAtAscending
-
+  addedAtAscending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) => a.id - b.id)
     return data
   },
 
-  addedAtDescending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => parseFloat(b.id) - parseFloat(a.id))//addedAtDescending
-
+  addedAtDescending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) => b.id - a.id)
     return data
   },
 
-  alphabeticalAscending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))//alphabeticalAscending
-
+  alphabeticalAscending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) =>
+      a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+    )
     return data
   },
 
-  alphabeticalDescending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => b.title.toLowerCase().localeCompare(a.title.toLowerCase()))//alphabeticalDescending
-
+  alphabeticalDescending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) =>
+      b.title.toLowerCase().localeCompare(a.title.toLowerCase())
+    )
     return data
   },
 
-  hoursAscending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => parseFloat(a.hours) - parseFloat(b.hours))//hoursAscending
-
+  hoursAscending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) => a.hours - b.hours)
     return data
   },
 
-  hoursDescending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => parseFloat(b.hours) - parseFloat(a.hours))//hoursDescending
-
+  hoursDescending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) => b.hours - a.hours)
     return data
   },
 
-  dateOfFinishAscending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => {
-
+  dateOfFinishAscending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) => {
       const first = a?.dateOfFinish
       const second = b?.dateOfFinish
-
       if (!first || !second) {
         return 0
       } else {
-        return parseFloat(first) - parseFloat(second)
+        return Date.parse(first!) - Date.parse(second!)
       }
-    })//dateOfFinishAscending
-
+    })
     return data
   },
 
-  dateOfFinishDescending: (data: []) => {
-
-    data = data.sort((a: any, b: any) => {
-
+  dateOfFinishDescending: (data: Game[]) => {
+    data = data.sort((a: Game, b: Game) => {
       const first = a?.dateOfFinish
       const second = b?.dateOfFinish
-
       if (!first || !second) {
         return 0
       } else {
-        return parseFloat(second) - parseFloat(first)
+        return Date.parse(second!) - Date.parse(first!)
       }
-    })//dateOfFinishDescending
-
+    })
     return data
-  }
+  },
 }
 
-export const sortArray: Array<sortArray> = [
-
+export const sortArray: SortArray[] = [
   { id: 1, option: 'Added at ascending', fn: sortGames.addedAtAscending },
   { id: 2, option: 'Added at descending', fn: sortGames.addedAtDescending },
   { id: 3, option: 'Alphabetical ascending', fn: sortGames.alphabeticalAscending },
@@ -92,9 +82,5 @@ export const sortArray: Array<sortArray> = [
   { id: 5, option: 'Hours to finish ascending', fn: sortGames.hoursAscending },
   { id: 6, option: 'Hours to finish descending', fn: sortGames.hoursDescending },
   { id: 7, option: 'Date of finish ascending', fn: sortGames.dateOfFinishAscending },
-  { id: 8, option: 'Date of finish descending', fn: sortGames.dateOfFinishDescending }
-
+  { id: 8, option: 'Date of finish descending', fn: sortGames.dateOfFinishDescending },
 ]
-
-
-
