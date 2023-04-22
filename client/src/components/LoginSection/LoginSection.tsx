@@ -55,11 +55,11 @@ export default function LoginSection() {
         </div>
         <div className="grid gap-4">
           <div ref={usernameRef}>
-            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" required />
+            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" autoComplete="username" required maxLength={45} />
           </div>
 
           <div ref={passwordRef} >
-            <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" required />
+            <InputLabel label="Password" type="password" placeholder="**********" icon="password" autoComplete="current-password" required maxLength={200} />
           </div>
 
           <div className="text-center mt-8">

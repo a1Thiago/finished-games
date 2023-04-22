@@ -76,10 +76,10 @@ export default function AddGameSection() {
         <Text className="text-redAlert-100">{validForm}</Text>
         <div className="grid gap-4">
           <div ref={titleRef}>
-            <InputLabel label="Title" type="text" placeholder="Game title" required />
+            <InputLabel label="Title" type="text" placeholder="Game title" required maxLength={75} />
           </div>
           <div ref={coverRef}>
-            <InputLabel label="Cover URL" type="url" placeholder="Game cover URL" />
+            <InputLabel label="Cover URL" type="url" placeholder="Game cover URL" maxLength={250} />
           </div>
           <div ref={hoursRef}>
             <InputLabel label="Hours" type="number" placeholder="Game Hours" />

@@ -1,19 +1,13 @@
 import { Text } from "@ui/Text"
 import { Envelope, Lock, IdentificationBadge } from "@phosphor-icons/react";
 
-type InputProps = {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  type: string
-  placeholder: string,
-  autoComplete?: string,
   invalid?: string
   icon?: 'userName' | 'password' | 'email'
-  required?: boolean
-  defaultValue?: string | number
-
 }
 
-export default function Input({ type, label, placeholder, invalid, icon, autoComplete, required, defaultValue }: InputProps) {
+export default function Input({ label, invalid, icon, ...props }: InputProps) {
   return (
     <div className="flex flex-col">
       <label className="mb-2 font-semibold" htmlFor={label}>
@@ -24,7 +18,7 @@ export default function Input({ type, label, placeholder, invalid, icon, autoCom
         {icon === 'password' && <Lock />}
         {icon === 'email' && <Envelope />}
         <input className="bg-transparent outline-none flex-1"
-          name={label} id={label} type={type} placeholder={placeholder} required={required} autoComplete={autoComplete} defaultValue={defaultValue} />
+          name={label} id={label}  {...props} />
       </div>
       <Text className="text-redAlert-100">{invalid}</Text>
     </div>

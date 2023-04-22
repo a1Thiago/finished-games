@@ -89,15 +89,15 @@ export default function Register() {
 
         <div className="grid gap-4">
           <div ref={usernameRef}>
-            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" required />
+            <InputLabel label="Username" type="text" placeholder="userName" icon="userName" invalid={userNameCheck} autoComplete="username" required maxLength={45} />
           </div>
 
           <div ref={passwordRef} >
-            <InputLabel label="Password" type="password" placeholder="**********" icon="password" invalid={passWordCheck} autoComplete="new-password" required />
+            <InputLabel label="Password" type="password" placeholder="**********" icon="password" invalid={passWordCheck} autoComplete="new-password" required maxLength={200} />
           </div>
 
           <div ref={emailRef} >
-            <InputLabel label="Email" type="email" placeholder="example@example.com" icon="email" invalid={emailCheck} autoComplete="email" required />
+            <InputLabel label="Email" type="email" placeholder="example@example.com" icon="email" invalid={emailCheck} autoComplete="email" required maxLength={45} />
           </div>
         </div>
         <div className="text-center  mt-8">
