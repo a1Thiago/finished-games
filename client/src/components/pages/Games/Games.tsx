@@ -4,11 +4,12 @@ import { makeRequest } from "@utils/axios"
 import { GamesNav } from "@components/GamesNav"
 import { GamesGrid } from "@components/GamesGrid"
 import { Game } from "@components/GamesGrid/GamesGrid"
-
+import Cookies from "js-cookie"
 
 export default function Games() {
 
-  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  // const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  const token = Cookies.get('accessToken') ?? null
 
   const [selectedOption, setSelectedOption] = useState<any>(null)
 

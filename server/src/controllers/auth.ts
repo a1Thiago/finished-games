@@ -83,14 +83,15 @@ export async function login(req: Request, res: Response) {
 
     const { password, ...others } = data[0]
 
-    // console.log(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000))//1MONTH
-
     return res.cookie('accessToken', token, {
+      httpOnly: true,
       sameSite: "none",
       secure: true,
-      httpOnly: true,
-      expires: new Date(Date.now() + 10 * 1000),//EDIT
-    }).status(200).json({ ...others, token })
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 1d
+    }).status(200).json({
+      ...others
+      , token
+    })
   })
 }
 

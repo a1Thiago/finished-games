@@ -5,6 +5,7 @@ import { makeRequest } from "@utils/axios"
 import { ProgressBar } from "@components/ui/ProgressBar"
 import { ErrorMessage } from "@components/ui/ErrorMessage"
 import { AxiosResponse } from "axios"
+import Cookies from "js-cookie";
 
 export type Game = {
   id: number
@@ -27,7 +28,8 @@ type GamesGridProps = {
 
 export default function GamesGrid({ error, isLoading, sortedGames }: GamesGridProps) {
 
-  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  // const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  const token = Cookies.get('accessToken') ?? null
 
   const queryClient = useQueryClient()
 

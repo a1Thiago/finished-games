@@ -9,6 +9,7 @@ import { makeRequest } from "@utils/axios"
 import { useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 
 type Inputs = {
   title: string;
@@ -19,7 +20,8 @@ type Inputs = {
 
 export default function EditGameSection() {
 
-  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  // const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  const token = Cookies.get('accessToken') ?? null
 
   const { id } = useParams();
 

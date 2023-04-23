@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, ReactNode } from 'react'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const url = `${import.meta.env.VITE_PRODUCTION_BACK_URL}/api/auth/login`
 
@@ -39,15 +40,31 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
         withCredentials: true
       })
 
+      Cookies.set('accessToken', res.data.token,
+        {
+          secure: true,
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 1d
+        })
+
+      delete res.data.token
+
       setTimeout(() => {
         setCurrentUser(res.data)
-      }, 2000);
+      }, 1000);
 
     } catch (error: any) {
       setLoginError(error?.response?.data)
       throw new Error(error);
     }
   }
+
+  useEffect(() => {
+    if (!Cookies.get('accessToken') || !localStorage.getItem('user')) {
+      Cookies.remove('accessToken')
+      setCurrentUser(null)
+    }
+    return
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(currentUser))

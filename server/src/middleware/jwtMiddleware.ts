@@ -11,8 +11,6 @@ export interface RequestWithUserInfo extends Request {
 
 export function verifyJWT(req: RequestWithUserInfo, res: Response, next: NextFunction) {
 
-  console.log(req.cookies)
-
   const token = req.headers['x-access-token'] as string
 
   if (!token) {

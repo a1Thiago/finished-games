@@ -7,6 +7,7 @@ import { makeRequest } from "@utils/axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 
 type Inputs = {
   title: string;
@@ -17,7 +18,8 @@ type Inputs = {
 
 export default function AddGameSection() {
 
-  const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  // const { token } = localStorage.getItem('user') ? (JSON.parse(localStorage.getItem('user')!)) : ''
+  const token = Cookies.get('accessToken') ?? null
 
   const navigate = useNavigate()
 
@@ -32,7 +34,8 @@ export default function AddGameSection() {
 
   const mutation = useMutation(async (addGame: Inputs) => {
     return await makeRequest.post(`/api/games/add`, addGame,
-      { headers: { 'x-access-token': token } })
+      { headers: { 'x-access-token': token } }
+    )
   }, {
     onSuccess: (game: AxiosResponse<any, any>) => {
       let gameObj = JSON.parse(game.config.data)
