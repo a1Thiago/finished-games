@@ -63,13 +63,6 @@ export async function register(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
 
-  function AddDays(days: number) {
-    let today = new Date();
-    let resultDate = new Date(today);
-    resultDate.setDate(today.getDate() + days);
-    return resultDate;
-  }
-
   if (Object.entries(req.body).length !== 2) return res.status(509).json({ requiredFields: 'All fields are required!' })
 
   const { username } = req?.body
@@ -79,29 +72,29 @@ export async function login(req: Request, res: Response) {
   connection.query(querySelectUsername, [username], (err: any, data: any) => {
 
     if (err) return res.status(500).json(err)
+
     if (data?.length === 0) return res.status(404).json({ invalidCredentials: "Wrong password or username!" })
 
     const checkPassword = bcrypt.compareSync(req.body.password, data[0].password)
 
     if (!checkPassword) return res.status(400).json({ invalidCredentials: "Wrong password or username!" })
 
-    const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET_KEY || 'secretKey')
+    const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET_KEY || 'never hardcode the secret key')
 
     const { password, ...others } = data[0]
+
+    // console.log(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000))//1MONTH
 
     return res.cookie('accessToken', token, {
       sameSite: "none",
       secure: true,
       httpOnly: true,
-      expires: AddDays(30)
+      expires: new Date(Date.now() + 10 * 1000),//EDIT
     }).status(200).json({ ...others, token })
   })
 }
 
-
 export function logout(req: Request, res: Response) {
-
-  //remove localStorage
 
   return res.clearCookie('accessToken', {
     secure: true,

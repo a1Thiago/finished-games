@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import usersRoutes from './routes/users.js'
-import gamesRoutes from './routes/games.js'
-import authRoutes from './routes/auth.js'
+import usersRoutes from './src/routes/users.js'
+import gamesRoutes from './src/routes/games.js'
+import authRoutes from './src/routes/auth.js'
 
 dotenv.config();
 
@@ -24,7 +24,6 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
-
 app.use(express.json())
 app.use(cors(
   {
@@ -42,7 +41,6 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/users', usersRoutes)
 app.use('/api/games', gamesRoutes)
-
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

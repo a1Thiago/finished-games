@@ -11,12 +11,14 @@ export interface RequestWithUserInfo extends Request {
 
 export function verifyJWT(req: RequestWithUserInfo, res: Response, next: NextFunction) {
 
+  console.log(req.cookies)
+
   const token = req.headers['x-access-token'] as string
 
   if (!token) {
     return res.status(401).json({ notLoggedIn: 'Not logged in!' })
   }
-  jwt.verify(token, process.env.JWT_SECRET_KEY || 'secretKey', (error: any, userInfo: any) => {
+  jwt.verify(token, process.env.JWT_SECRET_KEY || 'never hardcode the secret key', (error: any, userInfo: any) => {
     if (error) {
       return next(error)
     }
