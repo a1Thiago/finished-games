@@ -85,7 +85,7 @@ export async function login(req: Request, res: Response) {
 
     if (!checkPassword) return res.status(400).json({ invalidCredentials: "Wrong password or username!" })
 
-    const token = jwt.sign({ id: data[0].id }, 'secretKey')
+    const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET_KEY || 'secretKey')
 
     const { password, ...others } = data[0]
 
@@ -100,7 +100,6 @@ export async function login(req: Request, res: Response) {
 
 
 export function logout(req: Request, res: Response) {
-
 
   //remove localStorage
 

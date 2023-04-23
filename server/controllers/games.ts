@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import { db } from "../connectDB.js"
 import jwt from 'jsonwebtoken'
-import { RequestWithUserInfo } from "routes/games.js"
+import { RequestWithUserInfo } from "../middleware/jwtMiddleware.js"
 
 const connection = await db as any
 

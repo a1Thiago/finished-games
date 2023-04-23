@@ -1,7 +1,7 @@
 #server/docker-vm-key
 server/pem-vm-key
 
-
+.vscode
 # Logs
 logs
 *.log
@@ -29,3 +29,6 @@ dist-ssr
 test.json
 server/vercel copy.json
 test.js
+.vscode/
+.vscode/extensions.json
+.vscode/settings.json

@@ -20,7 +20,7 @@ const corsURLs = [
 ]
 
 app.use((_req: Request, res: Response, next: NextFunction) => {
-  res.header('Access-Control-Allow-Credentials', true as any)
+  res.header('Access-Control-Allow-Credentials', 'true')
   next()
 })
 
